@@ -1,4 +1,4 @@
-package com.application.ec_version10;
+package com.application.easycook;
 
 import org.junit.Test;
 
