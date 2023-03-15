@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 public class InitActivity extends AppCompatActivity {
 
+    String s = "אודי";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
