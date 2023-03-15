@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "375859074712",
+    "project_id": "easycook-lironudi",
+    "storage_bucket": "easycook-lironudi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375859074712:android:8a8518ca82a36e99cfa2ed",
+        "android_client_info": {
+          "package_name": "com.application.easycook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375859074712-f04ot8ss2j0oma17j8a449dl11eqddbn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqqtq94dEWH1MPsoFLzf5GdXh4LuV4vRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375859074712-f04ot8ss2j0oma17j8a449dl11eqddbn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

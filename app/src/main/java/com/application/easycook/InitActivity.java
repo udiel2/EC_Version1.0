@@ -11,6 +11,7 @@ import java.sql.Connection;
 
 public class InitActivity extends AppCompatActivity {
 
+
     // Fields --------------------------------------------------------------------------------------
 
     Button signin, signup;
@@ -18,6 +19,7 @@ public class InitActivity extends AppCompatActivity {
     String ConnectionResult="";
 
     // Functions -----------------------------------------------------------------------------------
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
