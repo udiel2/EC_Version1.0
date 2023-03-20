@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "375859074712",
-    "project_id": "easycook-lironudi",
-    "storage_bucket": "easycook-lironudi.appspot.com"
+    "project_number": "260633441467",
+    "project_id": "ezcookversion1",
+    "storage_bucket": "ezcookversion1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:375859074712:android:8a8518ca82a36e99cfa2ed",
+        "mobilesdk_app_id": "1:260633441467:android:80739987fe6276b142659e",
         "android_client_info": {
           "package_name": "com.application.easycook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "375859074712-f04ot8ss2j0oma17j8a449dl11eqddbn.apps.googleusercontent.com",
+          "client_id": "260633441467-qos7dtphbhpoa9t9hve331dhdtfcmsrf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDqqtq94dEWH1MPsoFLzf5GdXh4LuV4vRY"
+          "current_key": "AIzaSyCKdRTliVsYgNZlZVUPYJn7KIAMo_G5zhE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "375859074712-f04ot8ss2j0oma17j8a449dl11eqddbn.apps.googleusercontent.com",
+              "client_id": "260633441467-qos7dtphbhpoa9t9hve331dhdtfcmsrf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
