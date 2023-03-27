@@ -13,17 +13,19 @@
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/home_fragment_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/button_nav_view" />
 
     <FrameLayout
         android:id="@+id/home_fragment_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintEnd_toStartOf="@id/bottomNavigationView">
 
     </FrameLayout>
 

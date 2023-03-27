@@ -16,6 +16,7 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
    ActivityHomeBinding binding;
+   private MyPantry myPantry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,10 @@ public class HomeActivity extends AppCompatActivity {
 //            throw new RuntimeException(e);
 //        }
 
+
+    }
+    private void MakePanrty(){
+         this.myPantry=new MyPantry();
 
     }
     private void replaceFragment(Fragment fragment){
