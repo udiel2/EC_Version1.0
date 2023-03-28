@@ -128,7 +128,7 @@ public class PantryFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                String url = "https://www.shufersal.co.il/online/he/";
+                String url = "https://www.shufersal.co.il/online/he/search?text=";
                 url=url + "חלב וביצים";
                 Document doc;
                 doc = Jsoup.connect(url).get();
