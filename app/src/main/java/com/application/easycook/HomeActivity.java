@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
         //gs://ezcookversion1.appspot.com/EZ_icons/cola.png
-        // StorageReference pathReference = storageRef.child("EZ_icons/cola.png");
+//         StorageReference pathReference = storageRef.child("EZ_icons/cola.png");
 //        try {
 //            File localfile= File.createTempFile("tempfile",".png");
 //            pathReference.getFile(localfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
 //                    imageView.setImageBitmap(bitmap);
 //                }
 //            });
-//
+
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }

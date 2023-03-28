@@ -74,5 +74,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-config:19.2.0'
     implementation 'com.google.firebase:firebase-abt:19.1.0'
     implementation 'com.google.firebase:firebase-perf:19.0.8'
+    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'org.jsoup:jsoup:1.15.4'
 
 }
