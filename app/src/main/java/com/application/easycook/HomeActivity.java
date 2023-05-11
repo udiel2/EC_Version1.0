@@ -16,13 +16,13 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
    ActivityHomeBinding binding;
-   private MyPantry myPantry;
+   static MyPantry myPantry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        myPantry=new MyPantry();
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
@@ -32,6 +32,8 @@ public class HomeActivity extends AppCompatActivity {
                     replaceFragment(new HomeFragment());
                     break;
                 case R.id.navigation_pantry:
+//                    Intent intent = new Intent(getApplicationContext(), PantryActivity.class);
+//                    startActivity(intent);
                     replaceFragment(new PantryFragment());
                     break;
                 case R.id.navigation_riceps:
