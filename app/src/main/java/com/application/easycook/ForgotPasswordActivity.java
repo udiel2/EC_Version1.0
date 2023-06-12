@@ -1,7 +1,5 @@
 package com.application.easycook;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,11 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.Properties;
-import android.se.omapi.Session;
 import android.widget.Toast;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Transport;

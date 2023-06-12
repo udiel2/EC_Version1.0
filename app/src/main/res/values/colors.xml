@@ -5,4 +5,8 @@
     <color name="greywhite">#EEEEEE</color>
     <color name="Primary_Color">#50C2C9</color>
     <color name="Secondary_Color">#55BBAF</color>
+    <color name="light_green">#80DA82</color>
+    <color name="red_light">#CC4134</color>
+    <color name="blue_light">#56AFF6</color>
+
 </resources>

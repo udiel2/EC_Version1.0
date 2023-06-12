@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <style name="Theme.EasyCook" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/Primary_Color</item>
         <item name="colorSecondary">@color/Secondary_Color</item>

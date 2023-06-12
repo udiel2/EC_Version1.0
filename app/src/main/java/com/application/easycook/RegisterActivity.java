@@ -1,8 +1,4 @@
 package com.application.easycook;
-import java.sql.Connection;
-import java.sql.Statement;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +9,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.sql.Connection;
+import java.sql.Statement;
 
 public class RegisterActivity extends AppCompatActivity {
 

@@ -25,6 +25,8 @@ public class HomeFragment extends Fragment {
 
     public HomeFragment() {
         // Required empty public constructor
+//        HTMLProcessor h=new HTMLProcessor();
+//        h.processHTML();
     }
 
     /**

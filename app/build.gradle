@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.application.easycook'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.application.easycook"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -38,36 +38,50 @@ android {
         implementation.exclude module:'protobuf-lite'
         implementation.exclude module:'protobuf-java'
     }
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/res/Html-product_from_shofersal']
+//            res.srcDirs = ['src/main/res','src/main/res/layout/pantrylayouts']
+        }
+    }
 }
 
 dependencies {
+
+    implementation 'androidx.sqlite:sqlite:2.3.1'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation files('C:\\Users\\udiel\\OneDrive\\Documents\\GitHub\\EC_Version1.0\\app\\libs')
     implementation 'com.google.firebase:firebase-auth:21.1.0'
-    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
     implementation 'com.google.firebase:firebase-database:20.0.4'
+    implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
+    implementation 'com.firebaseui:firebase-ui-storage:8.0.0'
+
 
     implementation 'com.google.firebase:firebase-firestore:24.4.4'
     implementation 'com.google.firebase:firebase-storage:20.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.5'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     def versiRet = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$versiRet"
     implementation "com.squareup.retrofit2:converter-gson:$versiRet"
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
     def versiOkhttp = "4.9.1"
     implementation "com.squareup.okhttp3:okhttp:$versiOkhttp"
     implementation "com.squareup.okhttp3:logging-interceptor:$versiOkhttp"
     implementation 'mysql:mysql-connector-java:8.0.26'
-    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.sun.mail:android-activation:1.6.0'
     implementation 'com.sun.mail:android-mail:1.6.0'
+    implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.google.firebase:firebase-config:19.1.0'
     implementation 'com.google.protobuf:protobuf-java:2.5.0'
-    implementation 'com.sun.mail:android-activation:1.6.0'
     implementation 'com.google.firebase:firebase-firestore:21.5.0'
     implementation 'com.google.firebase:firebase-inappmessaging:19.1.0'
     implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.0'
@@ -76,5 +90,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf:19.0.8'
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'org.jsoup:jsoup:1.15.4'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+
+    // Add the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-storage'
+
 
 }

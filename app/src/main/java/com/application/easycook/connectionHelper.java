@@ -1,10 +1,11 @@
 package com.application.easycook;
+
 import android.annotation.SuppressLint;
 import android.os.StrictMode;
 import android.util.Log;
 
-import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class connectionHelper {
     Connection con;

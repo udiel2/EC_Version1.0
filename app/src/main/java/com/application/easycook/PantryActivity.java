@@ -18,22 +18,22 @@ public class PantryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         binding= ActivityHomeBinding.inflate(getLayoutInflater());
-        replaceFragment(new PantryFragment());
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()){
-                case R.id.navigation_home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.navigation_riceps:
-                    replaceFragment(new RecipeFragment());
-                    break;
-
-
-            }
-
-
-            return true;
-        });
+//        replaceFragment(new PantryFragment());
+//        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+//            switch (item.getItemId()){
+//                case R.id.navigation_home:
+//                    replaceFragment(new HomeFragment());
+//                    break;
+//                case R.id.navigation_riceps:
+//                    replaceFragment(new RecipeFragment());
+//                    break;
+//
+//
+//            }
+//
+//
+//            return true;
+//        });
     }
 
     private void replaceFragment(Fragment fragment){
