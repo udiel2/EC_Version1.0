@@ -9,6 +9,7 @@ import android.util.Log;
 import com.application.easycook.DatabaseHelper;
 import com.application.easycook.MyPantryPackage.PantryProduct;
 import com.application.easycook.Product;
+import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class DatabaseManager {
     private DatabaseHelper dbHelper;
     private PantryDatabaseHelper pantryDatabaseHelper;
     private ProductDatabaseHelper productDatabaseHelper;
+    private RecipesDatabaseHelper recipesDatabaseHelper;
 
     public DatabaseManager(Context context) {
         this.context = context;
@@ -29,11 +31,13 @@ public class DatabaseManager {
     public void open() {
         productDatabaseHelper = new ProductDatabaseHelper(context);
         pantryDatabaseHelper =new PantryDatabaseHelper(context);
+        recipesDatabaseHelper=new RecipesDatabaseHelper(context);
 //        dbHelper = new DatabaseHelper(context);
         database = productDatabaseHelper.getWritableDatabase();
     }
 
     public void close() {
+        recipesDatabaseHelper.close();
         pantryDatabaseHelper.close();
         productDatabaseHelper.close();
     }
@@ -56,11 +60,18 @@ public class DatabaseManager {
     public ArrayList<Product> getAllProducts(){
         return productDatabaseHelper.getAllProducts();
     }
+    public ArrayList<RecipeTitle> getAllRecipeTitles(){
+        return recipesDatabaseHelper.getAllRecipeTitles();
+    }
     public ArrayList<Product> getProductByName(String text){
         return productDatabaseHelper.getProductByName(text);
     }
     public ArrayList<PantryProduct> getPantry(){
-        return pantryDatabaseHelper.getPantry();
+        ArrayList<PantryProduct> pantry=pantryDatabaseHelper.getPantry();
+        for (PantryProduct product: pantry){
+            product.setProduct(productDatabaseHelper.getProductById(product.getProduct_id()));
+        }
+        return pantry;
     }
     public String addPantryProduct(PantryProduct product){
         return  pantryDatabaseHelper.addProduct(product);
@@ -75,8 +86,14 @@ public class DatabaseManager {
         boolean del=pantryDatabaseHelper.deleteProduct(id);
         return del;
     }
+    public void syncProductsFromFirebase(){
+        productDatabaseHelper.syncWithFirestore();
+    }
     public void updatePantryProduct(PantryProduct pantryProduct){
         pantryDatabaseHelper.updatePantryProduct(pantryProduct);
+    }
+    public void syncRecipesFromFirebase(){
+        recipesDatabaseHelper.syncWithFirestore();
     }
 
 }

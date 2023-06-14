@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -55,34 +56,11 @@
         android:layout_below="@+id/R_txt_2"
         android:id="@+id/R_lila">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:hint="Enter your first name"
-            android:background="@drawable/button_shape"
-            android:layout_marginLeft="10dp"
-            android:paddingLeft="10dp"
-            android:backgroundTint="@color/white"
-            android:id="@+id/R_fname"
-            />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:layout_below="@+id/R_fname"
-            android:hint="Enter your last name"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_shape"
-            android:layout_marginLeft="10dp"
-            android:paddingLeft="10dp"
-            android:backgroundTint="@color/white"
-            android:id="@+id/R_lname"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:layout_below="@+id/R_lname"
+            android:layout_below="@+id/R_lila"
             android:hint="Enter your email"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_shape"
@@ -135,11 +113,18 @@
         android:id="@+id/R_btn_1"
         />
 
+    <ProgressBar
+        android:id="@+id/progerssbar_register"
+        android:layout_below="@id/R_btn_1"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/R_btn_1"
+        android:layout_below="@id/progerssbar_register"
         android:gravity="center"
         android:layout_marginTop="20dp">
 

@@ -232,13 +232,13 @@ public class DataBaseLoader extends AppCompatActivity {
                                         MyBackgroundTask backgroundTask = new MyBackgroundTask(new MyBackgroundTask.Callback() {
                                             @Override
                                             public void onProductReady(Product product) {
-//                                                product.showProduct();
+                                                product.showProduct();
                                                 productsList.add(product);
                                                 ///////////////////////////////////////////////////////////////
 //                                                System.out.println(product.getCategory());
 //                                                System.out.println(product.getUnit_type());
                                                 /////////////////////////////////////////////////////////////////<<<UPLOADTOFIRESTORE>>>>>>>>>>>
-//                                                firestore.collection("All_Products").add(product);
+                                                firestore.collection("All_Products_V2").add(product);
                                                 /////////////////////////////////////////////////////////
 //                                                firestore.collection("Database").document("Products").collection(product.getImagePath().get(0)).add(product).addOnSuccessListener(new OnSuccessListener<Void>() {
 //                                                    @Override
@@ -300,7 +300,7 @@ public class DataBaseLoader extends AppCompatActivity {
                     counter+=productList.size();
                 }
                 System.out.println("\n Total Products: " + counter);
-                CollectionReference query = firestore.collection("All_Products");
+                CollectionReference query = firestore.collection("All_Products_V2");
                 AggregateQuery countQuery = query.count();
                 countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
                     @Override
@@ -658,11 +658,11 @@ public class DataBaseLoader extends AppCompatActivity {
                             }
 
                             Point range;
-                            if (category == "מוצרי עוף והודו") {
+                            if (category.contains("מוצרי עוף והודו")) {
                                 range = new Point(1, 4);
                                 if (name.contains("ארוז") || name.contains("קפוא"))
                                     continue product_loop;
-                            } else if (category == "ירקות טריים" || category.contains("פירות")) {
+                            } else if (category .contains("ירקות טריים")|| category.contains("פירות")) {
                                 range = new Point(4, 20);
                                 if (name.contains("ארוז") || name.contains("קפוא") || name.contains("אורגני") || name.contains("מארז") || name.contains("אפייה")
                                         || name.contains("סגירה") || name.contains("רוטב"))
@@ -670,28 +670,29 @@ public class DataBaseLoader extends AppCompatActivity {
                             } else if (category == "מוצרי בשר, עוף ודגים קפואים") {
                                 range = new Point(100, 180);
 
-                            } else if (category=="מוצרי יסוד ותבלינים") {
+                            } else if (category.contains("מוצרי יסוד ותבלינים")){
                                 if(name.contains("תערובת")||name.contains("תיבול")){
                                     continue product_loop;
                                 }
                                 range = new Point(300, 400);
-                            } else if (category=="סוכר") {
+                            } else if (category.contains("סוכר") ){
+                                range = new Point(300, 400);
                                 if(name.contains("אורגני")||name.contains("דק")||name.contains("גולד")||name.contains("קלאסי")){
                                     continue product_loop;
                                 }
                                 range = new Point(300, 400);
-                            } else if (category=="מוצרי חלב וביצים") {
+                            } else if (category.contains("מוצרי חלב וביצים")) {
                                 if(name.contains("חופש")||name.contains("אומגה")||name.contains("פעם")||name.contains("פלוס")||name.contains("אורגני")||name.contains("ארוז")) {
                                     continue product_loop;
                                 }
                                 range = new Point(5, 30);
-                            } else if (category=="גבינות מעדנייה") {
+                            } else if (category.contains("גבינות מעדנייה") ){
                                 if(name.contains(".")|| name.contains("ארוז")|| name.contains("בייבי")|| name.contains("כדור")
                                         || name.contains("קלאסי")|| name.contains("מיושנ")||name.contains("ליטא")||name.contains("מגורד")){
                                     continue product_loop;
                                 }
                                 range = new Point(10, 40);
-                            } else if (category == "מוצרים לאפיה ובישול") {
+                            } else if (category.contains("מוצרים לאפיה ובישול")) {
                                 range = new Point(100, 130);
                             } else if (category.contains("שימורים")) {
                                 range = new Point(200, 300);
@@ -746,7 +747,7 @@ public class DataBaseLoader extends AppCompatActivity {
                                     }
                                 } else if (nameStrings[i].contains("שופרסל") || nameStrings[i].contains("טרי") || nameStrings[i].contains("עצמי") || nameStrings[i].contains("מוכשר") || nameStrings[i].contains("יבוא")
                                         || nameStrings[i].contains("מיקס") || nameStrings[i].contains("גרם") || nameStrings[i].contains("כ-") || nameStrings[i].contains("כ -") || nameStrings[i].contains(".") || nameStrings[i].contains("מובחר")
-                                        || nameStrings[i].contains("שטופ") || nameStrings[i].contains("יחידה") || nameStrings[i].contains("/")) {
+                                        || nameStrings[i].contains("שטופ") || nameStrings[i].contains("יחידה") || nameStrings[i].contains("/")|| nameStrings[i].contains("\"")) {
                                     continue;
                                 }
                                 edit_name = edit_name + " " + nameStrings[i];
@@ -782,7 +783,8 @@ public class DataBaseLoader extends AppCompatActivity {
 //                            System.out.println("             Value: Price\n                Category: "+category);
                                 price = "?";
                             }
-
+                            if(category.contains("סוכר"))
+                                category="מוצרי יסוד ותבלינים";
 
                             Product p = new Product("0",edit_name, resultStrings, barcod, range, category, unit_type, price, unit_weight,unit_brand);
                             callback.onProductReady(p);

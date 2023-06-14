@@ -1,7 +1,6 @@
 package com.application.easycook;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.application.easycook.MyPantryPackage.MyPantry;
 import com.application.easycook.MyPantryPackage.PantryFragment;
+import com.application.easycook.RecipesPackage.RecipeFragment;
 import com.application.easycook.databinding.ActivityHomeBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,8 +51,10 @@ public class HomeActivity extends AppCompatActivity {
                     replaceFragment(new HomeFragment());
 //                    HTMLProcessor h=new HTMLProcessor();
 //                    h.processHTML();
-                    Intent intent1 = new Intent(HomeActivity.this, DataBaseLoader.class);
-                    startActivity(intent1);
+//                    myPantry.syncFirebase();
+//                    myPantry.syncRecipesFirebase();
+//                    Intent intent1 = new Intent(HomeActivity.this, DataBaseLoader.class);
+//                    startActivity(intent1);
                     break;
                 case R.id.navigation_pantry:
 //                    Intent intent = new Intent(getApplicationContext(), PantryActivity.class);
@@ -64,9 +66,9 @@ public class HomeActivity extends AppCompatActivity {
 //                    loadHtmlToFirebase();
 //                    parser.showData();
                     Log.d(TAG, "onClick: Switching Activities.");
-                    Intent intent = new Intent(HomeActivity.this, Firebase_connecting.class);
-                    startActivity(intent);
-                    replaceFragment(new RecipeFragment());
+//                    Intent intent = new Intent(HomeActivity.this, Firebase_connecting.class);
+//                    startActivity(intent);
+                    replaceFragment(new RecipeFragment(myPantry.getRecipeTitleList()));
                     break;
 
 

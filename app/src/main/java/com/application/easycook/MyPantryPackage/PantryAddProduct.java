@@ -120,7 +120,7 @@ public class PantryAddProduct extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText.length()>2) {
+                if(newText.length()>1) {
                     products.clear();
                     databaseManager.open();
                     ArrayList<Product> ps=databaseManager.getProductByName(newText);

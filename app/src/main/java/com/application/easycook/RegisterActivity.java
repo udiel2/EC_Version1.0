@@ -7,10 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -19,21 +26,25 @@ public class RegisterActivity extends AppCompatActivity {
 
     Connection connect;
     String ConnectionResult="";
+    private FirebaseAuth mAuth;
+    //mAuth = FirebaseAuth.getInstance();
     // Fields --------------------------------------------------------------------------------------
     ImageView R_return;
     TextView R_txt3;
     EditText R_fname,R_lname,R_email,R_password,R_repassword;
     Button R_btn;
     connectionHelper DB;
+    ProgressBar R_pbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mAuth = FirebaseAuth.getInstance();
         R_return=findViewById(R.id.R_img_2); // Arrow to return
         R_txt3=findViewById(R.id.R_txt_3); // To signin page
-        R_fname=findViewById(R.id.R_fname); // first name field
-        R_lname=findViewById(R.id.R_lname); // last name field
+        //R_fname=findViewById(R.id.R_fname); // first name field
+        R_pbar=findViewById(R.id.progerssbar_register);
         R_email=findViewById(R.id.R_email); // email field
         R_password=findViewById(R.id.R_pass); // pass field
         R_repassword=findViewById(R.id.R_repass); // repass field
@@ -59,19 +70,32 @@ public class RegisterActivity extends AppCompatActivity {
         R_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String user= R_email.getText().toString();
+                R_pbar.setVisibility(View.VISIBLE);
+                String email= String.valueOf(R_email.getText());
+                String password= String.valueOf(R_password.getText());
                 String pass= R_password.getText().toString();
                 String repass= R_repassword.getText().toString();
-                String fname= R_fname.getText().toString();
-                String lname= R_lname.getText().toString();
 
-                if(TextUtils.isEmpty(user) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(repass) || TextUtils.isEmpty(fname) || TextUtils.isEmpty(lname))
+                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(repass))
                     Toast.makeText(RegisterActivity.this, "All fields Required", Toast.LENGTH_SHORT).show();
                 else {
                     if(pass.equals(repass)) {
-                        SQLregister(user, pass, fname, lname);
-                        //GetTextFromSQL(view);
+                        mAuth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        R_pbar.setVisibility(View.GONE);
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Toast.makeText(RegisterActivity.this, "Account Created.",
+                                                    Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                         Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), InitActivity.class);
                         startActivity(intent);

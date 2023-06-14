@@ -63,7 +63,7 @@ public class PantryFragment extends Fragment {
 //            parseProducts.add(new ParseProduct(p.getImageName(),p.getName()));
 //            System.out.println(p.getName());
 //        }
-        Plist = myPantry.getProductList();
+//        Plist = myPantry.getProductList();
         pantryProducts=myPantry.getPantryList();
 //        binding = FragmentPantryBinding.inflate(getLayoutInflater());
 //        recyclerView = binding.recycleView1;
@@ -95,7 +95,7 @@ public class PantryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Plist = myPantry.getProductList();
+//        Plist = myPantry.getProductList();
         replaceSubFragment(new PantrySubHome(myPantry));
         floatingActionButton=view.findViewById(R.id.floating_add_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

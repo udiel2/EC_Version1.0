@@ -31,6 +31,10 @@ public class Product {
         return jsonObject;
     }
 
+    public Product(String name) {
+        this.name = name;
+    }
+
     public Product(String name, String imagePath, String id) {
         this.name = name;
         this.imagePath.add(imagePath);
@@ -133,7 +137,8 @@ public class Product {
     public void showProduct(){
         System.out.println("\n\nProduct: "+this.name+"\nID: "+this.id +"\nimag: "+this.imagePath+"\nBarCod: "
                 +this.bar_cod+"\nCategory: "+this.category+"\nMethud: "+this.unit_type+"\nPrice: "
-                +this.price+"\nUnit W: "+this.unit_weight+"\nBrand: "+this.unit_brand);
+                +this.price+"\nUnit W: "+this.unit_weight+"\nBrand: "+this.unit_brand+"\nlifeTime: "+
+        this.life_time);
     }
     public Point getLife_time() {
         return life_time;

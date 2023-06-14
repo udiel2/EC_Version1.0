@@ -4,6 +4,7 @@ package com.application.easycook.MyPantryPackage;
 import android.content.Context;
 
 import com.application.easycook.Product;
+import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
 import com.application.easycook.database.DatabaseManager;
 import com.application.easycook.database.PantryDatabaseHelper;
 import com.google.firebase.storage.FirebaseStorage;
@@ -14,22 +15,24 @@ import java.util.Date;
 
 public class MyPantry {
 
-    public ArrayList<PantryProduct> products;
-    public ArrayList<Product> productList;
+    public ArrayList<PantryProduct> myPantry;
+//    public ArrayList<Product> productList;
     FirebaseStorage db = FirebaseStorage.getInstance();
     PantryDatabaseHelper pantryDatabaseHelper;
     DatabaseManager databaseManager;
     StorageReference storageRef;
 
-    public ArrayList<Product> getProductList() {
-        return productList;
-    }
-    public ArrayList<PantryProduct> getPantryList(){return  products;}
+//    public ArrayList<Product> getProductList() {
+//        return productList;
+//    }
+    public ArrayList<PantryProduct> getPantryList(){return myPantry;}
+    public ArrayList<RecipeTitle> getRecipeTitleList(){return databaseManager.getAllRecipeTitles();}
+
 
     public MyPantry(Context context)
     {
-        productList = new ArrayList<>();
-        products=new ArrayList<>();
+//        productList = new ArrayList<>();
+        myPantry =new ArrayList<>();
         storageRef= FirebaseStorage.getInstance().getReference();
         databaseManager=new DatabaseManager(context);
         stratMyPantry();
@@ -43,12 +46,12 @@ public class MyPantry {
         String category=product.getCategory();
         Date date=new Date();
         String unit_w=product.getUnit_weight();
-        PantryProduct pantryProduct=new PantryProduct(null,product_id,category,unit_w,100,date);
+        PantryProduct pantryProduct=new PantryProduct(null,product_id,category,unit_w,100,date,product);
         databaseManager.open();
         pantryProduct.setId(databaseManager.addPantryProduct(pantryProduct));
         databaseManager.close();
-        products.add(pantryProduct);
-        productList.add(product);
+        myPantry.add(pantryProduct);
+//        productList.add(product);
     }
 //    public void addProduct(ParseProduct product) {
 //        Product temp=new Product(product.getTitle(),product.getTitle(),"test");
@@ -56,10 +59,9 @@ public class MyPantry {
 //    }
 
     public boolean removePantryProduct(String id) {
-        for(int i=0;i<products.size();i++){
-            if(products.get(i).getId()==id){
-                products.remove(i);
-                productList.remove(i);
+        for(int i = 0; i< myPantry.size(); i++){
+            if(myPantry.get(i).getId()==id){
+                myPantry.remove(i);
             }
         }
         boolean del=databaseManager.deletePantryProduct(id);
@@ -68,22 +70,28 @@ public class MyPantry {
     }
 
     public Product getProductByName(String name) {
-        for (Product product : productList) {
-            if (product.getName().equals(name)) {
-                return product;
+        for (PantryProduct pantryProduct : myPantry) {
+            if (pantryProduct.getProduct().getName().equals(name)) {
+                return pantryProduct.getProduct();
             }
         }
         return null;
     }
     private void stratMyPantry(){
         databaseManager.open();
-        products=databaseManager.getPantry();
-        for (PantryProduct product:products){
-            productList.add(databaseManager.getProductByID(product.getProduct_id()));
-        }
+        myPantry =databaseManager.getPantry();
+//        for (PantryProduct product: myPantry){
+//            productList.add(databaseManager.getProductByID(product.getProduct_id()));
+//        }
         databaseManager.close();
     }
     public void updatePantryProduct(PantryProduct p){
         databaseManager.updatePantryProduct(p);
+    }
+    public  void syncProductsFirebase(){
+        databaseManager.syncProductsFromFirebase();
+    }
+    public  void syncRecipesFirebase(){
+        databaseManager.syncRecipesFromFirebase();
     }
 }

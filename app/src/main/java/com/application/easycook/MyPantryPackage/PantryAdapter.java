@@ -30,19 +30,22 @@ import java.util.Date;
 
 public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder> {
     ArrayList<PantryProduct> pantryProducts;
-    ArrayList<Product> products;
+//    ArrayList<Product> products;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     LocalDateTime localDateTime;
     Context context;
     private PantryAdapter.OnItemClickedListener onItemClickedListener;
 
-    public PantryAdapter(ArrayList<PantryProduct> pantryProducts, ArrayList<Product> products, Context context) {
+    public PantryAdapter(ArrayList<PantryProduct> pantryProducts, Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             localDateTime=LocalDateTime.now();
         }
         this.pantryProducts = pantryProducts;
-        this.products=products;
+//        this.products=products;
         this.context=context;
+    }
+    public PantryAdapter(){
+
     }
 
     @NonNull
@@ -54,7 +57,7 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product=products.get(position);
+        Product product=pantryProducts.get(position).getProduct();
         PantryProduct pantryProduct=pantryProducts.get(position);
         if(pantryProduct.getAmount()==100){
             holder.amount.setText("1");
@@ -73,6 +76,7 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
             duration = Duration.between(localDateTime2, localDateTime);
             hours = duration.toDays();
         }
+        /////////////////////////////////////////////////////// Test +14 ////////////////
         System.out.println(time);
         int days=hours.intValue();
         if(time.contains(days)){
@@ -82,11 +86,13 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
             holder.amount.getBackground().setTint(context.getResources().getColor(R.color.red_light));
         }else{
             holder.amount.getBackground().setTint(context.getResources().getColor(R.color.blue_light));
-            System.out.println("________________blue_________________"+days);
+//            System.out.println("________________blue_________________"+days);
 
 
         }
-
+        int res = context.getResources().getIdentifier(product.getImagePath().get(1), "drawable", context.getPackageName());
+        System.out.println(res);
+//        imageview.setImageResource(res);
 
 //        holder.amount.getBackground().setTint(context.getResources().getColor(R.color.light_green));
         StorageReference imageRef = storage.getReference().child("html_shufersal").child(product.getImagePath().get(0)).child(product.getImagePath().get(1));
@@ -120,7 +126,7 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return pantryProducts.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;

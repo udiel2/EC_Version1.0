@@ -33,7 +33,7 @@ public class PantryDatabaseHelper  extends SQLiteOpenHelper {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private static final String DATABASE_NAME = "mypantry.db";
-    private static final int DATABASE_VERSION = 16;
+    private static final int DATABASE_VERSION = 18;
     private static final String TABLE_NAME = "my_pantry";
     private static final String COLUMN_ID = "id";
     private static final String PRODUCT_ID=  "product_id";
@@ -81,9 +81,9 @@ public class PantryDatabaseHelper  extends SQLiteOpenHelper {
     private void printExistingDatabases(Context context) {
         String[] databases = context.databaseList();
         if (databases.length > 0) {
-            System.out.println("Existing databases:");
+//            System.out.println("Existing databases:");
             for (String database : databases) {
-                System.out.println(database);
+//                System.out.println(database);
             }
         } else {
             System.out.println("No existing databases found.");
@@ -106,7 +106,7 @@ public class PantryDatabaseHelper  extends SQLiteOpenHelper {
                     + ")";
             db.execSQL(createTableQuery);
             System.out.println("Table created successfully.");
-            importFromFirebase();
+//            importFromFirebase();
         } else {
             System.out.println("Table already exists.");
         }
@@ -136,7 +136,7 @@ public class PantryDatabaseHelper  extends SQLiteOpenHelper {
         myp.setValue(product);
         String id= String.valueOf(myp.getKey());
         // קוד ההוספה ל-Bucket המקומי
-        System.out.println("*******************ID: "+id+" *****************");
+//        System.out.println("*******************ID: "+id+" *****************");
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, id);
@@ -155,7 +155,7 @@ public class PantryDatabaseHelper  extends SQLiteOpenHelper {
 
     public String addProduct(PantryProduct product) {
         FirebaseUser user = mAuth.getCurrentUser();
-        System.out.print(product.getProduct_id()+" | ");
+//        System.out.print(product.getProduct_id()+" | ");
         String id = syncWithFirestore(user, product);
         return id;
     }

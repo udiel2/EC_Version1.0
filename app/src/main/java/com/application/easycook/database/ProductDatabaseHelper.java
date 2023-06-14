@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ProductDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "products_main.db";
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 14;
     private static final String TABLE_NAME = "all_products";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
@@ -49,7 +49,6 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         File databaseFile = context.getDatabasePath(DATABASE_NAME);
         if (!databaseFile.exists()){
             onCreate(getWritableDatabase());
-            syncWithFirestore();
         }
             // קריאה לפונקציה onCreate רק אם מסד הנתונים אינו קיים
 
@@ -58,9 +57,9 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
     private void printExistingDatabases(Context context) {
         String[] databases = context.databaseList();
         if (databases.length > 0) {
-            System.out.println("Existing databases:");
+//            System.out.println("Existing databases:");
             for (String database : databases) {
-                System.out.println(database);
+//                System.out.println(database);
             }
         } else {
             System.out.println("No existing databases found.");
@@ -109,7 +108,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
     public void syncWithFirestore() {
         try {
-            firestore.collection("All_Products")
+            firestore.collection("All_Products_V2")
 //                        .whereEqualTo("name",query_text)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -229,10 +228,10 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         return affectedRows > 0;
     }
     public ArrayList<Product> getProductByName(String text){
-        if( text == null|| text.length()<2){
+        if( text == null|| text.length()<1){
             return null;
         }
-        System.out.println("ID Faild: "+text);
+//        System.out.println("ID Faild: "+text);
         ArrayList<Product> products = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME + " LIKE '%" + text + "%' ORDER BY LENGTH(" + COLUMN_NAME + ") ASC LIMIT 15";
