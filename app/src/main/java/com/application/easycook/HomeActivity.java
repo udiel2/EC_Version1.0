@@ -49,12 +49,7 @@ public class HomeActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.navigation_home:
                     replaceFragment(new HomeFragment());
-//                    HTMLProcessor h=new HTMLProcessor();
-//                    h.processHTML();
-//                    myPantry.syncFirebase();
-//                    myPantry.syncRecipesFirebase();
-//                    Intent intent1 = new Intent(HomeActivity.this, DataBaseLoader.class);
-//                    startActivity(intent1);
+
                     break;
                 case R.id.navigation_pantry:
 //                    Intent intent = new Intent(getApplicationContext(), PantryActivity.class);

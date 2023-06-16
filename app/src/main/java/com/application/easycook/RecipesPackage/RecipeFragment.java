@@ -5,20 +5,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.application.easycook.R;
 import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -54,6 +51,7 @@ public class RecipeFragment extends Fragment {
         storage=FirebaseStorage.getInstance();
         this.recipeTitleArrayList=recipeTitleArrayList;
 
+
         // Required empty public constructor
     }
 
@@ -70,203 +68,15 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_recipe, container, false);
         View subrootView=inflater.inflate(R.layout.recipe_home_fragment,container,false);
-        Button button7= rootView.findViewById(R.id.button7);
-        button7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                myTask();
-            }
-        });
-        Button button8=rootView.findViewById(R.id.button8);
-        button8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int counter=0;
-                for(RecipeTitle recipeTitle:recipeTitleArrayList) {
-//                    System.out.println(recipeTitle);
-                    FetchRecipeTask backgroundTask = new FetchRecipeTask(new Callback() {
-                        /////////https://foody.co.il/foody_recipe/%d7%9c%d7%97%d7%9e%d7%a0%d7%99%d7%95%d7%aa-%d7%91%d7%a9%d7%a8/
-                        @Override
-                        public void onDocumentReady(Document document) {
-                            Recipes recipes=paersRecipes(document);
-//                            System.out.println(recipes);
-                            firestore.collection("Recipes_details").document(recipeTitle.getId()).set(recipes);
 
 
-                        }
-
-
-                        @Override
-                        public void onError(Exception e) {
-                            System.out.println(e.getMessage());
-                            // טיפול בשגיאה
-                        }
-                    });
-
-                    try {
-                        backgroundTask.execute(recipeTitle.getLink());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    counter++;
-                }
-                System.out.println("---------------------------------Finish!------------------------" +
-                        "\n--------------------"+counter+"- Recipes!-----------------");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            }
-        });
-        replaceSubFragment(new RecipeSubfragment());
-
-//        for(int i=0;i<10;i++){
-//            TextView textView = new TextView(getContext());
-//            textView.setText("1111111111111111111");
-//        }
-        mAuth = FirebaseAuth.getInstance();///https://www.10dakot.co.il/recipe
+        replaceSubFragment(new RecipeSubfragment(recipeTitleArrayList));
+        mAuth = FirebaseAuth.getInstance();
 
         DatabaseReference productRef=fireBase.getReference();
 
 
         return rootView;
-    }
-    public void myTask(){///foody.co.il/category/ארוחות/?page=10
-
-        StorageReference fileRef=storage.getReference().child("Foody_recipes").child("Foody.html");
-        fileRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                String html = new String(bytes);
-                String f_name = fileRef.getName();
-                System.out.println("Category Start!!\nName: " + f_name + "\n");
-                Document document = Jsoup.parse(html);
-                Elements elements=document.select("#main > div > article");
-                int counter=0;
-                for(Element element: elements.select("#category-feed div[data-title]")){
-
-                    String href=element.select("div > a[href]").attr("href");
-                    try {
-                        String decodedURL = URLDecoder.decode(href, StandardCharsets.UTF_8.toString());
-//                        System.out.println(decodedURL);
-                        href = decodedURL;
-//                        DatabaseReference productRef=fireBase.getReference();
-//                        DatabaseReference myp=productRef.child("Recipes_DB").child("מתכונים ב10 דקות").child(name);
-//                        myp.setValue(name);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                        System.out.println("\n--!!---Error to Decode: \n"+ href +"\n---------^----------");
-                    }
-                    String title=element.attr("data-title");
-                    String description=element.select("div > section.feed-item-details-container > section > div").text();
-                    String imagePath=element.select("div > a > div > img").attr("src");
-                    String[] splitStrings = imagePath.split("/");
-                    ArrayList<String> resultImagePath = new ArrayList<>();
-                    // הוספת התוצאות ל-ArrayList
-                    for (int i = 0; i < splitStrings.length; i++) {
-                        resultImagePath.add(splitStrings[i]);
-                    }
-                    String imgAuth=element.select(" div > section.recipe-item-details.d-flex > div > a > img").attr("src");
-                    String[] splitStrings2 = imagePath.split("/");
-                    ArrayList<String> resultAutrImagePath = new ArrayList<>();
-                    // הוספת התוצאות ל-ArrayList
-                    for (int i = 0; i < splitStrings2.length; i++) {
-                        resultAutrImagePath.add(splitStrings2[i]);
-                    }
-                    String author=element.select("div > section.recipe-item-details.d-flex > div > ul > li:nth-child(1) > a").text();
-                    RecipeTitle recipeTitle=new RecipeTitle(title,"", description, href, resultImagePath, author, resultAutrImagePath);
-//                    firestore.collection("Recipes_V1").add(recipeTitle);
-//                    System.out.println(recipeTitle.toString());
-                    counter++;
-
-                }
-                System.out.println("\nCounter: "+counter);
-//                                            System.out.println(document);
-
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-
-//        String string1 ="https://foody.co.il/category/";
-//        String string2=string1+"ארוחות"+"/";
-//        String string3=string2+"?page=2";
-//        System.out.println("------------Start Processing---------------");
-//        FetchRecipeTask backgroundTask = new FetchRecipeTask(new Callback() {
-//            /////////https://foody.co.il/foody_recipe/%d7%9c%d7%97%d7%9e%d7%a0%d7%99%d7%95%d7%aa-%d7%91%d7%a9%d7%a8/
-//            @Override
-//            public void onDocumentReady(Document document) {
-//                Elements elements=document.select("#main > div > article");
-//                for(Element element: elements.select("#category-feed div[data-title]")){
-//                    String href=element.select("div > a[href]").attr("href");
-//                    try {
-//                        String decodedURL = URLDecoder.decode(href, StandardCharsets.UTF_8.toString());
-////                        System.out.println(decodedURL);
-//                        href = decodedURL;
-////                        DatabaseReference productRef=fireBase.getReference();
-////                        DatabaseReference myp=productRef.child("Recipes_DB").child("מתכונים ב10 דקות").child(name);
-////                        myp.setValue(name);
-//                    } catch (UnsupportedEncodingException e) {
-//                        e.printStackTrace();
-//                        System.out.println("\n--!!---Error to Decode: \n"+ href +"\n---------^----------");
-//                    }
-//                    String title=element.attr("data-title");
-//                    String description=element.select("div > section.feed-item-details-container > section > div").text();
-//                    String imagePath=element.select("div > a > div > img").attr("src");
-//                    String[] splitStrings = imagePath.split("/");
-//                    ArrayList<String> resultImagePath = new ArrayList<>();
-//                    // הוספת התוצאות ל-ArrayList
-//                    for (int i = 0; i < splitStrings.length; i++) {
-//                        resultImagePath.add(splitStrings[i]);
-//                    }
-//                    String imgAuth=element.select(" div > section.recipe-item-details.d-flex > div > a > img").attr("src");
-//                    String[] splitStrings2 = imagePath.split("/");
-//                    ArrayList<String> resultAutrImagePath = new ArrayList<>();
-//                    // הוספת התוצאות ל-ArrayList
-//                    for (int i = 0; i < splitStrings2.length; i++) {
-//                        resultAutrImagePath.add(splitStrings2[i]);
-//                    }
-//                    String author=element.select("div > section.recipe-item-details.d-flex > div > ul > li:nth-child(1) > a").text();
-//                    RecipeTitle recipeTitle=new RecipeTitle(title, description, href, resultImagePath, author, resultAutrImagePath);
-//                    System.out.println(recipeTitle.toString());
-//
-//                }
-//
-//            }
-//
-//
-//            @Override
-//            public void onError(Exception e) {
-//                System.out.println(e.getMessage());
-//                // טיפול בשגיאה
-//            }
-//        });
-//
-//        try {
-//            backgroundTask.execute(string3);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     private class FetchRecipeTask extends AsyncTask<String, Void, Void> {

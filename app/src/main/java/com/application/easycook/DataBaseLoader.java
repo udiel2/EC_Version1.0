@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +39,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -238,7 +242,7 @@ public class DataBaseLoader extends AppCompatActivity {
 //                                                System.out.println(product.getCategory());
 //                                                System.out.println(product.getUnit_type());
                                                 /////////////////////////////////////////////////////////////////<<<UPLOADTOFIRESTORE>>>>>>>>>>>
-                                                firestore.collection("All_Products_V2").add(product);
+//                                                firestore.collection("All_Products_V2").add(product);
                                                 /////////////////////////////////////////////////////////
 //                                                firestore.collection("Database").document("Products").collection(product.getImagePath().get(0)).add(product).addOnSuccessListener(new OnSuccessListener<Void>() {
 //                                                    @Override
@@ -317,153 +321,6 @@ public class DataBaseLoader extends AppCompatActivity {
             }
         });
     }
-        //////////////////////////////////////////////////////////
-        //                                                adapter.notifyDataSetChanged();
-//                                                DatabaseReference libraryRef = database.getReference().child("library");
-//                                                DatabaseReference newProductRef = libraryRef.push();
-//                                                newProductRef.setValue(product);
-//                                                StorageReference imageRef = storage.getReference().child("html_shufersal").child(product.getImagePath().get(0)).child(product.getImagePath().get(1));
-//                                                final long ONE_pic = 200 * 200;
-//                                                imageRef.getBytes(ONE_pic)
-//                                                        .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                                                            @Override
-//                                                            public void onSuccess(byte[] bytes) {
-//                                                                StorageReference destinationFileRef = storage.getReference().child("Product_icons").child(product.getImagePath().get(0)).child(product.getImagePath().get(1));
-//                                                                destinationFileRef.putBytes(bytes)
-//                                                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                                                                            @Override
-//                                                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                                                                // ההעתקה הצליחה
-//                                                                                // ניתן להוסיף כאן פעולות נוספות או לטפל בקובץ המעותק באופן רצוי
-//                                                                            }
-//                                                                        })
-//                                                                        .addOnFailureListener(new OnFailureListener() {
-//                                                                            @Override
-//                                                                            public void onFailure(@NonNull Exception exception) {
-//                                                                                System.out.println("!!!!!!!!!!!!!Faild to upload pic!!!!!!!!!!!\n------->"+product.getName());
-//                                                                                // כשההעתקה נכשלה
-//                                                                                // ניתן לטפל בשגיאה כאן
-//                                                                            }
-//                                                                        });
-//                                                            }
-//                                                        })
-//                                                        .addOnFailureListener(new OnFailureListener() {
-//                                                            @Override
-//                                                            public void onFailure(@NonNull Exception exception) {
-//                                                                // טעינת התמונה נכשלה, טפל בזה כראוי
-//                                                            }
-//                                                        });
-//                                            }
-//
-//                                            @Override
-//                                            public void onAllProductsReady() {
-//                                                if (productsList.isEmpty()) {
-//                                                    System.out.println("\nEmpty ArryList Finish!!!\n");
-//                                                } else {
-//                                                    String c = productsList.get(0).getCategory();
-//                                                    System.out.println("Category Finish!!\nName: " + productsList.get(0).getImagePath().get(0) + "\n");
-//                                                    ArrayList<Product> temp = new ArrayList<>(productsList);
-//                                                    hashMap.put(productsList.get(0).getImagePath().get(0), temp);
-//                                                    productsList.clear();
-//                                                }
-//
-//                                                // פעולות לאחר סיום תהליך הקבלת המוצרים
-//                                                // ...
-//                                            }
-//                                        });
-//        singin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mAuth.signInWithEmailAndPassword(email, password);
-//            }
-//        });
-//        load_html.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                storage.getReference();
-//                StorageReference fileRef = storage.getReference().child("html_shufersal/tavlinim.html");
-//                fileRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                    @Override
-//                    public void onSuccess(byte[] bytes) {
-////                        System.out.println("0-0-0-0-0-0-0-0-0");
-//                        String html = new String(bytes);
-////                        System.out.println(html);
-//                        Document document = Jsoup.parse(html);
-//                        System.out.println("0-0-0-0-0-0-0-0-0");
-//                        MyBackgroundTask backgroundTask = new MyBackgroundTask(new MyBackgroundTask.Callback() {
-//                            @Override
-//                            public void onProductReady(Product product) {
-//                                product.showProduct();
-//                                System.out.print("0");
-//                                productsList.add(product);
-//                                adapter.notifyDataSetChanged();
-//
-//                                // השתמש ב-Product שהתקבל כאן
-//                                // ...
-//                            }
-//
-//                            @Override
-//                            public void onAllProductsReady() {
-//
-//                                // פעולות לאחר סיום תהליך הקבלת המוצרים
-//                                // ...
-//                            }
-//                        });
-//                        backgroundTask.onPostExecute(document);
-//
-//
-//                        // כאן ניתן לבצע פעולות נוספות על המסמך document
-//
-//                        // קרא ל-callback.onPostExecute() עם ה-document המוכן
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.e(TAG, "Error downloading file: " + e.getMessage());
-//                        // טיפול בשגיאה בהורדת הקובץ
-//                        // ...
-//                    }
-//                });
-//            }
-//        });
-//                                        backgroundTask.onPostExecute(document);
-//                                        // כאן ניתן לבצע פעולות נוספות על המסמך document
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Log.e(TAG, "Error downloading file: " + e.getMessage());
-//                                        // טיפול בשגיאה בהורדת הקובץ
-//                                        // ...
-//                                    }
-//                                }).addOnCompleteListener(new OnCompleteListener<byte[]>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<byte[]> task) {
-//                                        System.out.println("****************************finishAll**************************");
-//                                        for (HashMap.Entry<String, ArrayList<Product>> entry : hashMap.entrySet()) {
-//                                            String key = entry.getKey();
-//                                            ArrayList<Product> productList = entry.getValue();
-//                                            // ניתן לבצע כאן פעולות על המפתח (key) או על רשימת המוצרים (productList)
-//                                            // לדוגמה, נדפיס את המפתח ואת רשימת המוצרים:
-//                                            System.out.println("מפתח: " + key);
-//                                            System.out.println("מספר מוצרים: " + productList.size());
-//                                            System.out.println("Size: " + hashMap.size());
-//                                        }
-//
-//                                    }
-//                                });
-//                            }
-//                        }
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.e(TAG, "Error listing files: " + e.getMessage());
-//                        // טיפול בשגיאה ברשימת הקבצים
-//                        // ...
-//                    }
-//                });
 
 
         public static class MyBackgroundTask extends AsyncTask<Uri, Void, Document> {
@@ -802,54 +659,69 @@ public class DataBaseLoader extends AppCompatActivity {
                 void onAllProductsReady();
             }
         }
-        ;
+/////////////////////////////////////////////////////////////////////////// make recipetitles db////////////////////////////////////////////
+    public void myTask(){
+
+        StorageReference fileRef=storage.getReference().child("Foody_recipes").child("Foody.html");
+        fileRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                String html = new String(bytes);
+                String f_name = fileRef.getName();
+                System.out.println("Category Start!!\nName: " + f_name + "\n");
+                Document document = Jsoup.parse(html);
+                Elements elements=document.select("#main > div > article");
+                int counter=0;
+                for(Element element: elements.select("#category-feed div[data-title]")){
+
+                    String href=element.select("div > a[href]").attr("href");
+                    try {
+                        String decodedURL = URLDecoder.decode(href, StandardCharsets.UTF_8.toString());
+//                        System.out.println(decodedURL);
+                        href = decodedURL;
+//                        DatabaseReference productRef=fireBase.getReference();
+//                        DatabaseReference myp=productRef.child("Recipes_DB").child("מתכונים ב10 דקות").child(name);
+//                        myp.setValue(name);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                        System.out.println("\n--!!---Error to Decode: \n"+ href +"\n---------^----------");
+                    }
+                    String title=element.attr("data-title");
+                    String description=element.select("div > section.feed-item-details-container > section > div").text();
+                    String imagePath=element.select("div > a > div > img").attr("src");
+                    String[] splitStrings = imagePath.split("/");
+                    ArrayList<String> resultImagePath = new ArrayList<>();
+                    // הוספת התוצאות ל-ArrayList
+                    for (int i = 0; i < splitStrings.length; i++) {
+                        resultImagePath.add(splitStrings[i]);
+                    }
+                    String imgAuth=element.select(" div > section.recipe-item-details.d-flex > div > a > img").attr("src");
+                    String[] splitStrings2 = imagePath.split("/");
+                    ArrayList<String> resultAutrImagePath = new ArrayList<>();
+                    // הוספת התוצאות ל-ArrayList
+                    for (int i = 0; i < splitStrings2.length; i++) {
+                        resultAutrImagePath.add(splitStrings2[i]);
+                    }
+                    String author=element.select("div > section.recipe-item-details.d-flex > div > ul > li:nth-child(1) > a").text();
+                    RecipeTitle recipeTitle=new RecipeTitle(title,"", description, href, resultImagePath, author, resultAutrImagePath);
+//                    firestore.collection("Recipes_V1").add(recipeTitle);
+//                    System.out.println(recipeTitle.toString());
+                    counter++;
+
+                }
+                System.out.println("\nCounter: "+counter);
+//                                            System.out.println(document);
+
+            }
+        });
+
+
 
 
     }
 
+    ;
 
 
-///////////////////////////////////////////////////////
-//import com.google.firebase.storage.FirebaseStorage;
-//        import com.google.firebase.storage.StorageReference;
-//        import com.google.android.gms.tasks.OnSuccessListener;
-//        import com.google.android.gms.tasks.OnFailureListener;
-//
-//// ...
-//
-//// קבועים שמכילים מיקום הקובץ המקורי והיעד
-//private static final String SOURCE_PATH = "source_folder/source_file.jpg";
-//private static final String DESTINATION_PATH = "destination_folder/destination_file.jpg";
-//
-//// קבועים שמכילים שמות התיקיות ב-Firebase Storage
-//private static final String BUCKET_NAME = "your_bucket_name";
-//private static final String STORAGE_FOLDER = "your_storage_folder";
-//
-//// ...
-//
-//// אתחול חיבור ל-Firebase Storage
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        StorageReference storageRef = storage.getReference();
-//
-//// מציאת קובץ המקור
-//        StorageReference sourceFileRef = storageRef.child(STORAGE_FOLDER + "/" + SOURCE_PATH);
-//
-//// מציאת התיקיה היעד
-//        StorageReference destinationFolderRef = storageRef.child(STORAGE_FOLDER);
-//
-//// העתקת הקובץ לתיקיה היעד
-//        sourceFileRef.getFile(destinationFolderRef.child(DESTINATION_PATH))
-//        .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//@Override
-//public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//        // ההעתקה הצליחה
-//        // ניתן להוסיף כאן פעולות נוספות או לטפל בקובץ המעותק באופן רצוי
-//        }
-//        })
-//        .addOnFailureListener(new OnFailureListener() {
-//@Override
-//public void onFailure(@NonNull Exception exception) {
-//        // כשההעתקה נכשלה
-//        // ניתן לטפל בשגיאה כאן
-//        }
-//        });
+    }
+

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,6 +70,7 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
         Product product=products.get(position);
         holder.textView.setText(product.getName());
         CheckBox c=holder.checkBox;
+        Button chek=holder.chek;
         StorageReference imageRef = storage.getReference().child("html_shufersal").child(product.getImagePath().get(0)).child(product.getImagePath().get(1));
         final long HAF_MEGABYTE = 512 * 512;
         imageRef.getBytes(HAF_MEGABYTE)
@@ -86,6 +88,23 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
                         // טעינת התמונה נכשלה, טפל בזה כראוי
                     }
                 });
+        chek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (onItemClickedListener != null) {
+//                    onItemClickedListener.onItemClick(position);
+//                }
+                if(!holder.is_chek){
+                    holder.is_chek=true;
+                    chek.setForeground(context.getResources().getDrawable(android.R.drawable.presence_online));
+                }
+                else {
+                    holder.is_chek=false;
+                    chek.setForeground(context.getResources().getDrawable(android.R.drawable.presence_invisible));
+                }
+
+            }
+        });
 //        if(selectedProducts.contains(products.get(position))){
 //            c.setChecked(true);
 //        }
@@ -111,24 +130,24 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+        Boolean is_chek;
         ImageView imageView;
         TextView textView;
+        String s_red_button = "@mipmap/red_foreground";
+        String s_green_button = "@mipmap/green_foreground";
+
 
         CheckBox checkBox;
+        Button chek;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            is_chek=false;
             imageView = itemView.findViewById(R.id.imageView_pImange);
             textView = itemView.findViewById(R.id.View_product_name);
             checkBox = itemView.findViewById(R.id.checkBox);
-//            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    if(isChecked){
-//                        onItemClickedListener.onItemClick(getAdapterPosition());
-//                    }
-//                }
-//            });
+
+            chek=itemView.findViewById(R.id.chek);
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,14 +156,15 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
                     }
                 }
             });
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (onItemClickedListener != null) {
-//                        onItemClickedListener.onItemClick(getAdapterPosition());
-//                    }
-//                }
-//            });
+            chek.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickedListener != null) {
+                        onItemClickedListener.onItemClick(getAdapterPosition());
+                    }
+
+                }
+            });
 
 
         }

@@ -7,4 +7,9 @@
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorOnPrimary">@color/greywhite</item>
     </style>
+    <style name="roundimageview" parent="Widget.AppCompat.Toolbar">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+        <item name="color">@color/white</item>
+    </style>
 </resources>

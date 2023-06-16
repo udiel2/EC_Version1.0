@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.application.easycook"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -41,7 +41,7 @@ android {
     sourceSets {
         main {
             assets.srcDirs = ['src/main/res/Html-product_from_shofersal']
-//            res.srcDirs = ['src/main/res','src/main/res/layout/pantrylayouts']
+            res.srcDirs = ['src/main/res','src/main/res/icons']
         }
     }
 }
@@ -64,6 +64,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.4.4'
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.5'
+    implementation 'com.google.mlkit:common:18.8.0'
+    implementation 'com.google.mlkit:language-id-common:16.1.0'
+    implementation 'com.google.mlkit:vision-common:17.3.0'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -96,6 +100,11 @@ dependencies {
     // Add the dependency for the Cloud Storage library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-storage'
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+
+
 
 
 }

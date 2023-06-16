@@ -104,31 +104,7 @@ public class PantryFragment extends Fragment {
                 replaceFragment(new PantryAddProduct(myPantry));
             }
         });
-//        binding = FragmentPantryBinding.inflate(getLayoutInflater());
-//        RecyclerView recyclerView= view.findViewById(R.id.recycle_home_all);
-//        recyclerView.setHasFixedSize(true);
-//
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
-//        recyclerView.setLayoutManager(layoutManager);
-//        adapter=new PantryAdapter(pantryProducts,Plist,getContext());
-//        recyclerView.setAdapter(adapter);
-//        floatingActionButton=view.findViewById(R.id.add_product_button);
-//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ArrayList<PantryProduct> pantryProducts=myPantry.getPantryList();
-//                for(PantryProduct product:pantryProducts){
-//                    System.out.println("Date: "+product.getDate());
-//                }
-//                replaceFragment(new PantryAddProduct(myPantry));
-//            }
-//        });
-//        binding.addProductButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                replaceFragment(new PantryAddProduct());
-//            }
-//        });
+
     }
     private void replaceFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

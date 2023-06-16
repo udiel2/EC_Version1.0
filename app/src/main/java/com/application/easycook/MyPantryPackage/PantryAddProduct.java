@@ -106,6 +106,7 @@ public class PantryAddProduct extends Fragment {
 
         searchView=view.findViewById(R.id.searchAddProduct);
 
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
