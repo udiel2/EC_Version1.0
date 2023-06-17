@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.application.easycook.Product;
 import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
+import com.application.easycook.RecipesPackage.Recipes;
 import com.application.easycook.database.DatabaseManager;
 import com.application.easycook.database.PantryDatabaseHelper;
 import com.google.firebase.storage.FirebaseStorage;
@@ -94,4 +95,18 @@ public class MyPantry {
     public  void syncRecipesFirebase(){
         databaseManager.syncRecipesFromFirebase();
     }
+
+    public Recipes getRecipeByid(String id){
+        return databaseManager.getRecipeById(id);
+    }
+
+    public Product getProductByid(String id){return databaseManager.getProductByID(id);}
+
+    public ArrayList<RecipeTitle> getRecipeTitlesByName(String name){
+        return databaseManager.getRecipesTitleByName(name);
+    }
+    public RecipeTitle getRecipeTitleById(String id){
+        return getRecipeTitleById(id);
+    }
+
 }

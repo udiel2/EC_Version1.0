@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.application.easycook.MyPantryPackage.MyPantry;
+import com.application.easycook.MyPantryPackage.PantryProduct;
 import com.application.easycook.R;
 import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +40,7 @@ public class RecipeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     private String mParam1;
@@ -45,11 +52,24 @@ public class RecipeFragment extends Fragment {
 
     private FirebaseStorage storage;
     private ArrayList<RecipeTitle> recipeTitleArrayList;
+    private  RecipeSubfragment recipeSubfragment;
+    MyPantry myPantry;
 
-    public RecipeFragment(ArrayList<RecipeTitle> recipeTitleArrayList) {
+    public RecipeFragment(MyPantry myPantry) {
         recipes_names=new ArrayList<>();
+        this.myPantry=myPantry;
         storage=FirebaseStorage.getInstance();
-        this.recipeTitleArrayList=recipeTitleArrayList;
+        this.recipeTitleArrayList=myPantry.getRecipeTitleList();
+        ArrayList<RecipeTitle> recipeTitles=myPantry.getRecipeTitleList();
+        ArrayList<RecipeTitle> recipeTitles1=new ArrayList<>();
+        ArrayList<Recipes> recipes=new ArrayList<>();
+        for(int i=0;i<20;i++){
+            recipeTitles1.add(recipeTitles.get(i));
+            recipes.add(myPantry.getRecipeByid(recipeTitles.get(i).getId()));
+
+        }
+        recipeSubfragment=new RecipeSubfragment(myPantry,recipeTitles1,recipes);
+
 
 
         // Required empty public constructor
@@ -68,15 +88,109 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_recipe, container, false);
         View subrootView=inflater.inflate(R.layout.recipe_home_fragment,container,false);
+        Button gg=rootView.findViewById(R.id.button5);
+        gg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CookNow();
+            }
+        });
+//        gg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    firestore.collection("Recipes_all")
+//                            .get()
+//                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                                @Override
+//                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                                    int counter = 0;
+//                                    List<DocumentSnapshot> querySnapshots = queryDocumentSnapshots.getDocuments();
+//                                    for (DocumentSnapshot documentSnapshot : querySnapshots) {
+//                                        documentSnapshot.getData();
+//                                        Recipes recipe = documentSnapshot.toObject(Recipes.class);
+//                                        Map<String, Object> recip = new HashMap<>();
+//                                        recip.put("name", recipe.getRecipeName());
+//                                        recip.put("diff", recipe.getDifficultyLevel());
+//                                        recip.put("country", recipe.getTitle());
+//                                        System.out.println(recipe);
+//                                        firestore.collection("Recipes_Main").document("Categorys").collection(recipe.getCategory()).document(recipe.getId()).set(recip);
+////                                        System.out.println(documentSnapshot.get("link"));
+////                                        RecipeFragment.FetchRecipeTask task = new FetchRecipeTask(new Callback() {
+////                                            @Override
+////                                            public void onDocumentReady(Document document) {
+////                                                Recipes recipes = paersRecipes(document);
+////                                                String basename=recipeTitle.getLink();
+////                                                String[] splitStrings = basename.split("/");
+////                                                basename=splitStrings[splitStrings.length-1];
+////                                                basename=basename.replace("-"," ");
+////                                                recipes.setRecipeName(basename);
+////                                                recipes.setId(documentSnapshot.getId());
+////                                                firestore.collection("Recipes_all").document(documentSnapshot.getId()).set(recipes);
+////                                            }
+////
+////                                            @Override
+////                                            public void onError(Exception e) {
+////
+////                                            }
+////                                        });
+////                                        task.execute(recipeTitle.getLink()); // הפעלת ה-AsyncTask עם ה-URL בתור הפרמטר
+//                                        counter++;
+//                                    }
+//                                    System.out.println("Finish Update From FireStore!\n----- " + counter + " Products upload.");
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    System.out.println("------------------------ Error to get firestore----------------------" +
+//                                            e.getMessage());
+//                                }
+//                            });
+//                } catch (Exception exception) {
+//                    System.out.println(exception.getMessage());
+//                }
+//            }
+//        });
 
 
-        replaceSubFragment(new RecipeSubfragment(recipeTitleArrayList));
+        replaceSubFragment(recipeSubfragment);
         mAuth = FirebaseAuth.getInstance();
 
         DatabaseReference productRef=fireBase.getReference();
 
 
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        SearchView searchView=view.findViewById(R.id.search_view_recipe_home);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                ArrayList<RecipeTitle> titles= myPantry.getRecipeTitlesByName(query);
+                ArrayList<RecipeTitle> recipeTitles1=new ArrayList<>();
+                ArrayList<Recipes> recipes=new ArrayList<>();
+                for(RecipeTitle recipeTitle:titles){
+                    recipeTitles1.add(recipeTitle);
+                    recipes.add(myPantry.getRecipeByid(recipeTitle.getId()));
+                    System.out.println(recipeTitle);
+
+                }
+                recipeSubfragment.updateRecycle(recipes,recipeTitles1);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+//        Button button7=view.findViewById(R.id.button5);
+
     }
 
     private class FetchRecipeTask extends AsyncTask<String, Void, Void> {
@@ -102,6 +216,7 @@ public class RecipeFragment extends Fragment {
             }
             return null;
         }
+
     }
     public interface Callback {
         void onDocumentReady(Document document);
@@ -180,7 +295,7 @@ public class RecipeFragment extends Fragment {
             }
             steper++;
         }
-        Recipes recipes=new Recipes(ingediantsHash, title,  main_image,  category,  title,  subCategory,  numberOfDishes,  description, preparationTime, difficultyLevel ,  calories, PreparationSteps);
+        Recipes recipes=new Recipes(null,ingediantsHash, title,  main_image,  category,  title,  subCategory,  numberOfDishes,  description, preparationTime, difficultyLevel ,  calories, PreparationSteps);
 //        System.out.println(recipes);
         return recipes;
 
@@ -195,5 +310,35 @@ public class RecipeFragment extends Fragment {
 //            Preparation.add(prepar);
 //        }
 //        System.out.println(name);
+
     }
+    private void CookNow(){
+        ArrayList<RecipeTitle> canCookNow=new ArrayList<>();
+        ArrayList<String> name_tags=new ArrayList<>();
+        for(PantryProduct product:myPantry.getPantryList()){
+            String name=product.getProduct().getName();
+            String[] split=name.split(" ");
+            for(int i = 0; i<split.length;i++){
+                name_tags.add(split[i]);
+            }
+        }
+        for(RecipeTitle recipeTitle:myPantry.getRecipeTitleList()){
+            Recipes recipe=myPantry.getRecipeByid(recipeTitle.getId());
+//            System.out.println(recipe);
+            if(recipe==null){
+                continue;
+            }
+            for(String ingeridian: recipe.getIngredients().keySet()){
+                for(String name:name_tags){
+                    if(ingeridian.contains(name)){
+                        canCookNow.add(recipeTitle);
+                    }
+                }
+            }
+        }
+        for(RecipeTitle recipeTitle:canCookNow){
+            System.out.println(recipeTitle.getTitle());
+        }
+    }
+
 }

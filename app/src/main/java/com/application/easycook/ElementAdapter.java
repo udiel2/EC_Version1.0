@@ -136,8 +136,8 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView_pImange);
-            name = itemView.findViewById(R.id.View_product_name);
+            imageView = itemView.findViewById(R.id.productlistRecipe_image);
+            name = itemView.findViewById(R.id.productlistRecipe_name);
             barcod=itemView.findViewById(R.id.barcode);
             unit_type=itemView.findViewById(R.id.unittype);
             category=itemView.findViewById(R.id.category);

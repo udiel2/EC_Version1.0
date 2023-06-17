@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
+import com.application.easycook.RecipesPackage.Recipes;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +30,9 @@ import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.AggregateQuerySnapshot;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -44,6 +48,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -318,6 +324,63 @@ public class DataBaseLoader extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+        singin.setOnClickListener(new View.OnClickListener() {
+            ////////////////////////////////////////////////////////////// make categorys by all products////////////////////////////////////
+            @Override
+            public void onClick(View v) {
+                try {
+                    firestore.collection("Recipes_all")
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    int counter = 0;
+                                    List<DocumentSnapshot> querySnapshots = queryDocumentSnapshots.getDocuments();
+                                    for (DocumentSnapshot documentSnapshot : querySnapshots) {
+                                        documentSnapshot.getData();
+                                        Recipes recipe = documentSnapshot.toObject(Recipes.class);
+                                        Map<String, Object> recip = new HashMap<>();
+                                        recip.put("name", recipe.getRecipeName());
+                                        recip.put("diff", recipe.getDifficultyLevel());
+                                        recip.put("country", recipe.getTitle());
+                                        System.out.println(recipe);
+                                        firestore.collection("Recipes_Main").document("Categorys").collection(recipe.getCategory()).document(recipe.getId()).set(recip);
+//                                        System.out.println(documentSnapshot.get("link"));
+//                                        RecipeFragment.FetchRecipeTask task = new FetchRecipeTask(new Callback() {
+//                                            @Override
+//                                            public void onDocumentReady(Document document) {
+//                                                Recipes recipes = paersRecipes(document);
+//                                                String basename=recipeTitle.getLink();
+//                                                String[] splitStrings = basename.split("/");
+//                                                basename=splitStrings[splitStrings.length-1];
+//                                                basename=basename.replace("-"," ");
+//                                                recipes.setRecipeName(basename);
+//                                                recipes.setId(documentSnapshot.getId());
+//                                                firestore.collection("Recipes_all").document(documentSnapshot.getId()).set(recipes);
+//                                            }
+//
+//                                            @Override
+//                                            public void onError(Exception e) {
+//
+//                                            }
+//                                        });
+//                                        task.execute(recipeTitle.getLink()); // הפעלת ה-AsyncTask עם ה-URL בתור הפרמטר
+                                        counter++;
+                                    }
+                                    System.out.println("Finish Update From FireStore!\n----- " + counter + " Products upload.");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    System.out.println("------------------------ Error to get firestore----------------------" +
+                                            e.getMessage());
+                                }
+                            });
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
+                }
             }
         });
     }
@@ -718,6 +781,95 @@ public class DataBaseLoader extends AppCompatActivity {
 
 
 
+    }
+
+
+    ////////////////////////////////////////////////ParseRecipeFromURL////////////////////////////////////////
+    ////////////////////////////////////////////////ParseRecipeFromURL////////////////////////////////////////
+
+    public Recipes paersRecipes(Document document){
+        String title=document.select("#main > div > article > section.details-container > div.details.container > h1").text();
+        System.out.println(title);
+        String description=document.select("#main > div > article > section.details-container > div.details.container > div.description.no-print").text();
+        HashMap<String,String> ingediantsHash=new HashMap<>();
+        String main_image=document.select("#main > div > article > section.details-container > div.featured-content-container.no-print > img").attr("src");
+        if(main_image.isEmpty()){
+            main_image="?";
+        }
+        String category=document.select("#main > div > article > section.details-container > div.details.container > ol > li:nth-child(3) > a").text();
+        String subCategory=document.select("#main > div > article > section.details-container > div.details.container > ol > li:nth-child(4) > a").text();
+        String numberOfDishes=document.select("#number-of-dishes").attr("data-amount");
+        Elements ingredients_el=document.select("#recipe-ingredients > div.recipe-ingredients-container.row");
+        for(Element element: ingredients_el.select("div")){
+            String amount=element.select("h2").text();
+            if (!amount.isEmpty()){
+                ingediantsHash.put(amount,amount);
+            }
+            for (Element element1:element.select("li")){
+                String p1=element1.select("#ing_ > div > span > span.ingredient-data > span.name").text();
+                System.out.println("------------------"+p1+"----------------------");
+                String amount3=element1.select("span.amount").text();
+                String amount2=element1.select("span.unit").text();
+
+                String ingrediant_unit_type="";
+                ingrediant_unit_type=amount3 + " " + amount2;
+
+                System.out.println("------------------"+ingrediant_unit_type+"----------------------");
+                if(ingrediant_unit_type.equals("")){
+                    ingrediant_unit_type="?";
+                }
+                if(p1.equals("")){
+                    continue;
+                }
+                ingediantsHash.put(p1,ingrediant_unit_type);
+            }
+        }
+        System.out.println(ingediantsHash);
+        ArrayList<String> preparationTime=new ArrayList<>();
+        preparationTime.add(document.select("#main > div > article > section.recipe-overview.no-print > div.overview-lists-container-desktop > ul.overview.row > li:nth-child(2) > div > div.key-value.preparation-time").text());
+        preparationTime.add(document.select("#main > div > article > section.recipe-overview.no-print > div.overview-lists-container-desktop > ul.overview.row > li:nth-child(2) > div > div:nth-child(2)").text());
+        String difficultyLevel=document.select("#main > div > article > section.recipe-overview.no-print > div.overview-lists-container-desktop > ul.overview.row > li.overview-item.difficulty.col-1 > div > div.value.difficulty_level").text();
+        String calories=document.select("#main > div > article > section.recipe-overview.no-print > div.overview-lists-container-desktop > ul.overview.row > li:nth-child(3) > div > div.value.calories_per_dish").text();
+//        ArrayList<String> ingredients=new ArrayList<>();
+        ArrayList<String> PreparationSteps=new ArrayList<>();
+        Elements Steps=document.select("#main > div > article > section.recipe-content.original_content");
+        int steper=1;
+        for (Element step:Steps.select("li")){
+            PreparationSteps.add(String.valueOf(steper));
+            String s=step.text();
+            PreparationSteps.add(s);
+            String img="";
+            for (Element figureS:step.select("figure")){
+                img=figureS.attr("src");
+                try {
+                    String decodedURL = URLDecoder.decode(img, StandardCharsets.UTF_8.toString());
+//                        System.out.println(decodedURL);
+                    img = decodedURL;
+//                        DatabaseReference productRef=fireBase.getReference();
+//                        DatabaseReference myp=productRef.child("Recipes_DB").child("מתכונים ב10 דקות").child(name);
+//                        myp.setValue(name);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    System.out.println("\n--!!---Error to Decode: \n"+ img +"\n---------^----------");
+                }
+            }
+            steper++;
+        }
+        Recipes recipes=new Recipes(null,ingediantsHash, title,  main_image,  category,  title,  subCategory,  numberOfDishes,  description, preparationTime, difficultyLevel ,  calories, PreparationSteps);
+//        System.out.println(recipes);
+        return recipes;
+
+//        ArrayList<String> Preparation=new ArrayList<>();
+//        String name= document.select("#recipe-ingredients > div.recipe-ingredients-container.row > div:nth-child(3) > h2").text();
+//        String img = document.select("#main > div > article > section.details-container > div.featured-content-container.no-print > img").attr("src");
+//        Elements elements=document.select("#main > div > article");
+//        Elements recipecontent=elements.select("section.recipe-content.original_content");
+//        for(Element element:recipecontent.select("li")){
+//            System.out.println(element.text());
+//            String prepar=element.text();
+//            Preparation.add(prepar);
+//        }
+//        System.out.println(name);
     }
 
     ;

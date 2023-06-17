@@ -31,18 +31,15 @@ public class PantrySubHomeRecyceleBuilder {
     private ArrayList<RecyclerView> recyclerViewArrayList;
 
     PantrydisplayProductDetails productDetails;
+    private PantrydisplayProductDetails.OnButtonClickListener buttonClickListener;
     private LinearLayout linearLayout;
     private ArrayList<String> categoryNames;
     private ArrayList<PantryProduct> expires_soon;
     private LayoutInflater inflater;
     private Context context;
-    private PantryAdapter all_adapter;
-    private PantryAdapter expires_Adapter;
     LocalDateTime localDateTime;
     private PantryAdapter mainAdapter;
     private PantryAdapter mainAdapter2;
-    ArrayList<RecyclerView.Adapter> adapters;
-
 
     PantrySubHomeRecyceleBuilder(MyPantry myPantry, Context context, LinearLayout linearLayout, LayoutInflater inflater) {
 //        linearLayout=new LinearLayout(linearLayout.getContext());
@@ -183,6 +180,12 @@ public class PantrySubHomeRecyceleBuilder {
 
         }
 
+    }
+    public interface OnButtonClickListener {
+        void onButtonClick();
+    }
+    public void setOnButtonClickListener(PantrydisplayProductDetails.OnButtonClickListener listener) {
+        buttonClickListener = listener;
     }
 
 }

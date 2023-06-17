@@ -6,10 +6,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.application.easycook.DatabaseHelper;
 import com.application.easycook.MyPantryPackage.PantryProduct;
 import com.application.easycook.Product;
 import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
+import com.application.easycook.RecipesPackage.Recipes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -23,6 +31,8 @@ public class DatabaseManager {
     private PantryDatabaseHelper pantryDatabaseHelper;
     private ProductDatabaseHelper productDatabaseHelper;
     private RecipesDatabaseHelper recipesDatabaseHelper;
+    private RecipeDetailsDatabaseHelper recipeDetailsDatabaseHelper;
+    private FirebaseFirestore firestore=FirebaseFirestore.getInstance();
 
     public DatabaseManager(Context context) {
         this.context = context;
@@ -32,6 +42,7 @@ public class DatabaseManager {
         productDatabaseHelper = new ProductDatabaseHelper(context);
         pantryDatabaseHelper =new PantryDatabaseHelper(context);
         recipesDatabaseHelper=new RecipesDatabaseHelper(context);
+        recipeDetailsDatabaseHelper=new RecipeDetailsDatabaseHelper(context);
 //        dbHelper = new DatabaseHelper(context);
         database = productDatabaseHelper.getWritableDatabase();
     }
@@ -95,5 +106,53 @@ public class DatabaseManager {
     public void syncRecipesFromFirebase(){
         recipesDatabaseHelper.syncWithFirestore();
     }
+
+
+    public Recipes getRecipeById(String id){
+        return recipeDetailsDatabaseHelper.getRecipeById(id);
+    }
+    public Recipes getRecipe(String id){
+        DocumentReference ref=firestore.collection("Recipes_details").document(id);
+        ArrayList<Recipes> recipes=new ArrayList<>();
+
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        document.getData();
+                        recipes.add(document.toObject(Recipes.class));
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+        if (recipes.isEmpty())
+            return null;
+        else
+            return recipes.get(0);
+    }
+
+
+    public RecipeTitle getRecipesTitleById(String id){
+        return recipesDatabaseHelper.getRecipeTitleById(id);
+    }
+
+    public ArrayList<RecipeTitle> getRecipesTitleByName(String name){
+        ArrayList<Recipes> recipes=recipeDetailsDatabaseHelper.getRecipesByName(name);
+        ArrayList<RecipeTitle> recipeTitles=new ArrayList<>();
+        for(Recipes recipe:recipes){
+            RecipeTitle recipeTitle =recipesDatabaseHelper.getRecipeTitleById(recipe.getId());
+            recipeTitles.add(recipeTitle);
+        }
+        return recipeTitles;
+
+    }
+
 
 }

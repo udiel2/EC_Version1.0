@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/product_list_layout"
+    android:id="@+id/product_list_Recipe_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView_pImange"
+        android:id="@+id/productlistRecipe_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="8dp"
@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/forgot_img" />
 
     <TextView
-        android:id="@+id/View_product_name"
+        android:id="@+id/productlistRecipe_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -26,26 +26,18 @@
         android:layout_marginBottom="16dp"
         android:text="פסטה"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_pImange"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/productlistRecipe_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/chek"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginStart="24dp"
         android:background="#00FFFFFF"
         android:foreground="@android:drawable/presence_invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,7 @@ public class InitActivity extends AppCompatActivity {
     // Functions -----------------------------------------------------------------------------------
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

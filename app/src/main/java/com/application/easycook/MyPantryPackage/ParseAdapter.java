@@ -69,7 +69,7 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ParseAdapter.ViewHolder holder, int position) {
         Product product=products.get(position);
         holder.textView.setText(product.getName());
-        CheckBox c=holder.checkBox;
+//        CheckBox c=holder.checkBox;
         Button chek=holder.chek;
         StorageReference imageRef = storage.getReference().child("html_shufersal").child(product.getImagePath().get(0)).child(product.getImagePath().get(1));
         final long HAF_MEGABYTE = 512 * 512;
@@ -91,9 +91,9 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
         chek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (onItemClickedListener != null) {
-//                    onItemClickedListener.onItemClick(position);
-//                }
+                if (onItemClickedListener != null) {
+                    onItemClickedListener.onItemClick(position);
+                }
                 if(!holder.is_chek){
                     holder.is_chek=true;
                     chek.setForeground(context.getResources().getDrawable(android.R.drawable.presence_online));
@@ -143,19 +143,19 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             is_chek=false;
-            imageView = itemView.findViewById(R.id.imageView_pImange);
-            textView = itemView.findViewById(R.id.View_product_name);
-            checkBox = itemView.findViewById(R.id.checkBox);
+            imageView = itemView.findViewById(R.id.productlistRecipe_image);
+            textView = itemView.findViewById(R.id.productlistRecipe_name);
+//            checkBox = itemView.findViewById(R.id.checkBox);
 
             chek=itemView.findViewById(R.id.chek);
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onItemClickedListener != null) {
-                        onItemClickedListener.onItemClick(getAdapterPosition());
-                    }
-                }
-            });
+//            checkBox.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (onItemClickedListener != null) {
+//                        onItemClickedListener.onItemClick(getAdapterPosition());
+//                    }
+//                }
+//            });
             chek.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

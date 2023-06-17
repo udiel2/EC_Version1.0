@@ -47,8 +47,8 @@ public class PantryDatabaseHelper  extends SQLiteOpenHelper {
     public PantryDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mAuth = FirebaseAuth.getInstance();
-        String email = "udi_test@test.gr";
-        String password = "123123";
+//        String email = "udi_test@test.gr";
+//        String password = "123123";
         printExistingDatabases(context);
         // בדיקה של קיום מסד הנתונים
         File databaseFile = context.getDatabasePath(DATABASE_NAME);
@@ -74,7 +74,7 @@ public class PantryDatabaseHelper  extends SQLiteOpenHelper {
             }
         };
         mAuth.addAuthStateListener(mAuthListener);
-        mAuth.signInWithEmailAndPassword(email, password);
+//        mAuth.signInWithEmailAndPassword(email, password);
 
     }
 
@@ -106,7 +106,7 @@ public class PantryDatabaseHelper  extends SQLiteOpenHelper {
                     + ")";
             db.execSQL(createTableQuery);
             System.out.println("Table created successfully.");
-//            importFromFirebase();
+            importFromFirebase();
         } else {
             System.out.println("Table already exists.");
         }

@@ -1,8 +1,5 @@
 package com.application.easycook;
 
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -26,7 +23,6 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
@@ -54,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.navigation_pantry:
 //                    Intent intent = new Intent(getApplicationContext(), PantryActivity.class);
 //                    startActivity(intent);
+//                    set_firestorDB();
                     replaceFragment(new PantryFragment(myPantry));
                     break;
                 case R.id.navigation_riceps:
@@ -63,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
                     Log.d(TAG, "onClick: Switching Activities.");
 //                    Intent intent = new Intent(HomeActivity.this, Firebase_connecting.class);
 //                    startActivity(intent);
-                    replaceFragment(new RecipeFragment(myPantry.getRecipeTitleList()));
+                    replaceFragment(new RecipeFragment(myPantry));
                     break;
 
 
@@ -72,22 +69,6 @@ public class HomeActivity extends AppCompatActivity {
 
             return true;
         });
-        //gs://ezcookversion1.appspot.com/EZ_icons/cola.png
-//         StorageReference pathReference = storageRef.child("EZ_icons/cola.png");
-//        try {
-//            File localfile= File.createTempFile("tempfile",".png");
-//            pathReference.getFile(localfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                    Bitmap bitmap= BitmapFactory.decodeFile(localfile.getAbsolutePath());
-//                    ImageView imageView= findViewById(R.id.imageView);
-//                    imageView.setImageBitmap(bitmap);
-//                }
-//            });
-
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
 
 
     }
@@ -124,76 +105,13 @@ public class HomeActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        try {
 //
-//            Document doc;
-//            InputStream inputStream = getAssets().open("Html-product_from_shofersal/veg-fresh.html");
-//
-//            doc = Jsoup.parse(inputStream, "UTF-8", "http://example.com/");
-//            System.out.println(doc);
-//            Elements data = doc.select("main#main");
-//            for (Element li : data.select("section.tileSection3 li")) {
-//                String imgsrc = li.select("a").select("img").attr("src");
-//                System.out.println("lllllllllllll: " + imgsrc);
-//                String title = li.select("div.text.description").select("strong").text();
-//                if (!imgsrc.contains("http"))
-//                    continue;
-//                Log.d("items", "img: " + imgsrc + " title: " + title);
-//
-//            }
-//
-//
-//            System.out.println(data);
-//            int size = data.size();
-//            if (data.contains("section.tileSection3")) {
-//
-//            }
-//        }catch (Exception exception){
-//            System.out.println(exception);
-//
-//        }
 
 //
 
 
     }
-    private static class HtmlParsingTask extends AsyncTask<String, Void, Void> {
-        private Context context;
-        public ArrayList<String> titels;
-        public ArrayList<String> images;
 
-
-        public HtmlParsingTask(Context context) {
-            this.context = context;
-        }
-
-
-
-        @Override
-        protected Void doInBackground(String... fileNames) {
-            String fileName = fileNames[0];
-            try {
-                AssetManager assetManager = context.getAssets();
-                InputStream inputStream = assetManager.open(fileName);
-                Document doc = Jsoup.parse(inputStream, "UTF-8", "");
-//                Document document = Jsoup.parse(doc.outerHtml());
-                Elements data = doc.select("main#main");
-                for (Element li : data.select("section.tileSection3 li")) {
-                    String imgsrc = li.select("a").select("img").attr("src");
-                    System.out.println("String imgsrc: " + imgsrc);
-                    String title = li.select("div.text.description").select("strong").text();
-                    System.out.println("Title:"+title);
-                    if (!imgsrc.contains("http"))
-                        continue;
-                    Log.d("items", "img: " + imgsrc + " title: " + title);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-    }
 
 
 

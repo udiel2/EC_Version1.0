@@ -68,26 +68,21 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // בדיקה אם הטבלה כבר קיימת
-//        if (!isTableExists(db, TABLE_NAME)) {
-            // יצירת הטבלה רק אם היא לא קיימת
-            String createTableQuery = "CREATE TABLE " + TABLE_NAME + " ("
-                    + COLUMN_ID + " STRING PRIMARY KEY, "
-                    + COLUMN_NAME + " TEXT, "
-                    + COLUMN_IMAGE_PATHS + " TEXT, "
-                    + COLUMN_CATEGORY + " TEXT, "
-                    + COLUMN_UNIT_TYPE + " TEXT, "
-                    + COLUMN_BAR_COD + " TEXT, "
-                    + COLUMN_LIFE_TIME + " TEXT, "
-                    + COLUMN_PRICE + " TEXT, "
-                    + COLUMN_UNIT_WEIGHT + " TEXT,"
-                    + COLUMN_UNIT_BRAND + " TEXT"
-                    + ")";
-            db.execSQL(createTableQuery);
-            System.out.println("Table created successfully.");
-//        } else {
-//            System.out.println("Table already exists.");
-//        }
+        String createTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
+                + COLUMN_ID + " STRING PRIMARY KEY, "
+                + COLUMN_NAME + " TEXT, "
+                + COLUMN_IMAGE_PATHS + " TEXT, "
+                + COLUMN_CATEGORY + " TEXT, "
+                + COLUMN_UNIT_TYPE + " TEXT, "
+                + COLUMN_BAR_COD + " TEXT, "
+                + COLUMN_LIFE_TIME + " TEXT, "
+                + COLUMN_PRICE + " TEXT, "
+                + COLUMN_UNIT_WEIGHT + " TEXT,"
+                + COLUMN_UNIT_BRAND + " TEXT"
+                + ")";
+        db.execSQL(createTableQuery);
+        System.out.println("Table created successfully.");
+        syncWithFirestore();
     }
 
     @Override
@@ -206,6 +201,14 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
     public String addProduct(Product product,String id) {
 //        System.out.print(product.getName()+" | ");
         SQLiteDatabase db = getWritableDatabase();
+        // בדיקה אם המוצר כבר קיים בטבלה
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_ID + " = ?", new String[]{id}, null, null, null);
+        if (cursor.moveToFirst()) {
+            // המוצר כבר קיים בטבלה, נתעלם מהוספתו
+            cursor.close();
+            db.close();
+            return id;
+        }
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, id);
         values.put(COLUMN_NAME, product.getName());

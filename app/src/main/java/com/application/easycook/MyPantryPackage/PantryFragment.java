@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,8 @@ public class PantryFragment extends Fragment {
     StorageReference storageRef;
     FloatingActionButton floatingActionButton;
 
+    ArrayList<ConstraintLayout> constraintLayouts;
+
 
 
 
@@ -41,6 +44,7 @@ public class PantryFragment extends Fragment {
 
     public PantryFragment(MyPantry pantry) {
         myPantry=pantry;
+
         // Required empty public constructor
     }
 
@@ -96,6 +100,17 @@ public class PantryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        Plist = myPantry.getProductList();
+//        PantrySubHomeRecyceleBuilder builder=new PantrySubHomeRecyceleBuilder(myPantry,getContext(),getLayoutInflater());
+//        this.constraintLayouts=builder.main_constraint;
+//        PantrySubHome2 pantrySubHome=new PantrySubHome2(constraintLayouts);
+//        replaceSubFragment(pantrySubHome);
+//        builder.setOnButtonClickListener(new PantrydisplayProductDetails.OnButtonClickListener() {
+//            @Override
+//            public void onButtonClick() {
+//                PantryFragment pantrySubHome=new PantryFragment(myPantry);
+//                replaceFragment(pantrySubHome);
+//            }
+//        });
         replaceSubFragment(new PantrySubHome(myPantry));
         floatingActionButton=view.findViewById(R.id.floating_add_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -115,5 +130,10 @@ public class PantryFragment extends Fragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.pantry_sub_fragment,fragment);
         fragmentTransaction.commit();
+    }
+    public void refresh(){
+        PantrySubHome2 pantrySubHome=new PantrySubHome2(constraintLayouts);
+        replaceSubFragment(pantrySubHome);
+
     }
 }

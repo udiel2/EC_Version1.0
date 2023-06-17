@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,29 +52,29 @@
         android:layout_below="@+id/L_img_3"
         android:id="@+id/L_lila">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:hint="Email"
-        android:background="@drawable/button_shape"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="10dp"
-        android:backgroundTint="@color/white"
-        android:id="@+id/L_email"
-        />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:hint="Email"
+            android:background="@drawable/button_shape"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:backgroundTint="@color/white"
+            android:id="@+id/L_email"
+            />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:layout_below="@+id/L_email"
-        android:hint="Password"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_shape"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="10dp"
-        android:backgroundTint="@color/white"
-        android:id="@+id/L_pass"
-        />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_below="@+id/L_email"
+            android:hint="Password"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_shape"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:backgroundTint="@color/white"
+            android:id="@+id/L_pass"
+            />
 
     </LinearLayout>
 
@@ -89,6 +90,7 @@
         android:textColor="@color/Secondary_Color"
         android:id="@+id/L_txt_2"/>
 
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,6 +105,12 @@
         android:fontFamily="@font/poppinsbold"
         android:id="@+id/L_btn_1"
         />
+    <ProgressBar
+        android:id="@+id/L_pbar"
+        android:layout_below="@id/L_btn_1"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
