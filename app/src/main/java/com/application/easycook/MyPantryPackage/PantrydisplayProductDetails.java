@@ -91,30 +91,29 @@ public class PantrydisplayProductDetails{
         System.out.println("Date1: "+date1);
         Duration duration;
         Long hours=new Long(0);
+        Long hours2=new Long(0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LocalDateTime localDateTime2 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             duration = Duration.between(localDateTime2, localDateTime);
-            hours = duration.toMinutes();
+            hours = duration.toDays();
+            hours2 = duration.toHours();
         }
-        int time=hours.intValue();
-        String time_type="דקות";
-        if(time>60){
-            time=time/60;
-            time_type="שעות";
-            if(time>24){
-                time=time/24;
-                time_type="ימים";
-                if(time>7){
-                    time=time/7;
-                    time_type="שבועות";
-                }
+        int time=hours2.intValue();
+
+        String time_type="שעות";
+        if(time>24){
+            time=time/24;
+            time_type="ימים";
+            if(time>7){
+                time=time/7;
+                time_type="שבועות";
             }
         }
-
         timetype.setText(time_type);
         date.setText(String.valueOf(time));
         TextView status = dialogView.findViewById(R.id.pantrydialogstatus);
-        int days=hours.intValue()/60;
+        int days=hours.intValue();
+        days=days;
         Point lifetime=p.getLife_time();
         System.out.println("------------------------"+days);
         if( lifetime.x>days || lifetime.y-days>4 ){

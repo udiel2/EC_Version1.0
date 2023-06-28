@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.easycook.MyPantryPackage.MyPantry;
 import com.application.easycook.R;
 import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,20 +28,26 @@ import java.util.ArrayList;
 public class RecipeTitleAdapter extends RecyclerView.Adapter<RecipeTitleAdapter.ViewHolder> {
     LocalDateTime localDateTime;
     Context context;
+    public int index=6;
     private MyPantry myPantry;
     private RecipeTitleAdapter.OnItemClickedListener onItemClickedListener;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private ArrayList<RecipeTitle> recipeTitles;
 
-    private ArrayList<Recipes> recipes;
-    public RecipeTitleAdapter(ArrayList<Recipes> recipes,ArrayList<RecipeTitle> recipeTitles, Context context, MyPantry myPantry) {
+
+
+
+    public RecipeTitleAdapter(ArrayList<RecipeTitle> recipeTitles, Context context, MyPantry myPantry) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             localDateTime= LocalDateTime.now();
         }
-        this.recipes=recipes;
+
         this.myPantry=myPantry;
         this.recipeTitles=recipeTitles;
         this.context=context;
+
+
+
     }
 
     @NonNull
@@ -53,8 +60,7 @@ public class RecipeTitleAdapter extends RecyclerView.Adapter<RecipeTitleAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RecipeTitle recipeTitle =recipeTitles.get(position);
-        Recipes recipe=recipes.get(position);
-
+        Recipes recipe=myPantry.getRecipeByid(recipeTitle.getId());
         TextView title=holder.name;
         title.setText(recipeTitle.getTitle());
         TextView totaltime=holder.totaltime;
@@ -71,7 +77,11 @@ public class RecipeTitleAdapter extends RecyclerView.Adapter<RecipeTitleAdapter.
                     @Override
                     public void onSuccess(byte[] bytes) {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        holder.imageView.setImageBitmap(bitmap);
+//                        holder.imageView.setImageBitmap(bitmap);
+                        Glide.with(context)
+                                .asBitmap()
+                                .load(bitmap)
+                                .into(holder.imageView);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -82,11 +92,16 @@ public class RecipeTitleAdapter extends RecyclerView.Adapter<RecipeTitleAdapter.
                     }
                 });
 
+
     }
 
     @Override
     public int getItemCount() {
-        return recipeTitles.size();
+        if(recipeTitles.size()>index){
+            return index;
+        }
+        else return  recipeTitles.size();
+
     }
 
     public void setOnItemClickedListener(RecipeTitleAdapter.OnItemClickedListener onItemClickedListener) {
@@ -124,5 +139,11 @@ public class RecipeTitleAdapter extends RecyclerView.Adapter<RecipeTitleAdapter.
 
         }
     }
+
+
+
+
+
+
 
 }

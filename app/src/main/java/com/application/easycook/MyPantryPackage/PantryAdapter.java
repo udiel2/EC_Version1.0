@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.easycook.Product;
 import com.application.easycook.R;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,6 +28,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+
 
 public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder> {
     ArrayList<PantryProduct> pantryProducts;
@@ -79,30 +81,54 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
         /////////////////////////////////////////////////////// Test +14 ////////////////
         System.out.println(time);
         int days=hours.intValue();
-        if(time.contains(days)){
+        days=days;
+        if(lifetime.x>days || lifetime.y-days>4 ){
             System.out.println(days);
-            holder.amount.getBackground().setTint(context.getResources().getColor(R.color.light_green));
-        } else if (lifetime.y<days) {
+            holder.amount.getBackground().setTint(context.getResources().getColor(R.color.blue_light));
+        } else if (lifetime.y < days) {
             holder.amount.getBackground().setTint(context.getResources().getColor(R.color.red_light));
         }else{
-            holder.amount.getBackground().setTint(context.getResources().getColor(R.color.blue_light));
+            holder.amount.getBackground().setTint(context.getResources().getColor(R.color.light_green));
 //            System.out.println("________________blue_________________"+days);
 
 
         }
+
+
+
+
+
+
         int res = context.getResources().getIdentifier(product.getImagePath().get(1), "drawable", context.getPackageName());
         System.out.println(res);
 //        imageview.setImageResource(res);
+        String imagePath = product.getImagePath().get(1);
+//        int res = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
+        System.out.println(res);
+
+// imageview.setImageResource(res);
 
 //        holder.amount.getBackground().setTint(context.getResources().getColor(R.color.light_green));
         StorageReference imageRef = storage.getReference().child("html_shufersal").child(product.getImagePath().get(0)).child(product.getImagePath().get(1));
-        final long HAF_MEGABYTE = 512 * 512;
+        final long HAF_MEGABYTE = 512  * 512;
+
+//        Glide.with(context)
+//                .asBitmap()
+//                .load(imageRef)
+//                .into(holder.imageView);
         imageRef.getBytes(HAF_MEGABYTE)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        holder.imageView.setImageBitmap(bitmap);
+//                        holder.imageView.setImageBitmap(bitmap);
+//                        Glide.with(context)
+//                                .load(imageRef)
+//                                .into(holder.imageView);
+                        Glide.with(context)
+                                .asBitmap()
+                                .load(bitmap)
+                                .into(holder.imageView);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -112,6 +138,7 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
                         // טעינת התמונה נכשלה, טפל בזה כראוי
                     }
                 });
+
 
     }
 

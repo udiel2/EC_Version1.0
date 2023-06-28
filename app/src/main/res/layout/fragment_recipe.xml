@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/recipehomeswitch1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -45,8 +45,18 @@
                 android:queryHint="חפש בכל המתכונים"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/switch1"
+                app:layout_constraintStart_toEndOf="@+id/recipehomeswitch1"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="הכן עכשיו"
+                app:layout_constraintBottom_toTopOf="@+id/recipehomeswitch1"
+                app:layout_constraintEnd_toEndOf="@+id/recipehomeswitch1"
+                app:layout_constraintStart_toStartOf="@+id/recipehomeswitch1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -67,16 +77,17 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/recipescrollview"
         android:layout_width="match_parent"
+
+
         android:layout_height="match_parent"
-
-
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <FrameLayout
             android:id="@+id/recipeSubfragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="700dp"
             tools:context=".RecipesPackage.RecipeFragment" />
 
     </androidx.core.widget.NestedScrollView>
@@ -86,6 +97,8 @@
         android:layout_width="wrap_content"
         android:src="@android:drawable/ic_menu_edit"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp" />"
+        android:layout_margin="16dp" />
+
+    "
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

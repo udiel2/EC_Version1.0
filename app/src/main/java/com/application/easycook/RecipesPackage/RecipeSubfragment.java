@@ -29,6 +29,7 @@ public class RecipeSubfragment extends Fragment {
     private RecipeTitleAdapter adapter;
     private ArrayList<RecipeTitle> recipeTitles;
 
+
     public RecipeSubfragment(MyPantry pantry, ArrayList<RecipeTitle> recipeTitles, ArrayList<Recipes> recipes) {
         this.myPantry = pantry;
         this.recipeTitles = recipeTitles;
@@ -49,7 +50,7 @@ public class RecipeSubfragment extends Fragment {
         RecyclerView recyclerView = new RecyclerView(getContext());
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecipeTitleAdapter(recipes, recipeTitles, getContext(), myPantry);
+        adapter = new RecipeTitleAdapter( recipeTitles, getContext(), myPantry);
         recyclerView.setAdapter(adapter);
         ConstraintLayout constraintLayout = new ConstraintLayout(requireContext());
         constraintLayout.addView(recyclerView);
@@ -62,6 +63,13 @@ public class RecipeSubfragment extends Fragment {
 
             }
         });
+
+
+
+
+
+
+
     }
 
     public void updateRecycle(ArrayList<Recipes> recipes, ArrayList<RecipeTitle> recipeTitles) {
@@ -90,5 +98,16 @@ public class RecipeSubfragment extends Fragment {
         fragmentTransaction.addToBackStack("fragmentA");
         fragmentTransaction.commit();
     }
+    public void upDateRecipes(ArrayList<RecipeTitle> recipeTitles, ArrayList<Recipes> recipes){
+        this.recipes.clear();
+        this.recipeTitles.clear();
+        this.recipes.addAll(recipes);
+        this.recipeTitles.addAll(recipeTitles);
+        adapter.notifyDataSetChanged();
+    }
 
+    public void addItems() {
+        adapter.index+=4;
+        adapter.notifyDataSetChanged();
+    }
 }

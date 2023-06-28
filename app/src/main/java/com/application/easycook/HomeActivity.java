@@ -2,6 +2,8 @@ package com.application.easycook;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -31,6 +33,8 @@ public class HomeActivity extends AppCompatActivity {
    HtmlParser parser;
     public MyPantry myPantry;
     private static final String TAG = "HomeActivity";
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,14 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+
+    }
+    private void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private void replaceFragment(Fragment fragment){
@@ -111,6 +123,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
 
 
 

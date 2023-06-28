@@ -17,12 +17,33 @@ public class Recipes {
     private String difficultyLevel;
     private String calories;
     private ArrayList<String> PreparationSteps;
+    private ArrayList<String> products;
+
+
+
 
     Recipes(){
 
     }
 
-    public Recipes(String id,HashMap<String, String> ingredients, String title, String main_image, String category, String recipeName, String subCategory, String numberOfDishes, String description, ArrayList<String> preparationTime, String difficultyLevel, String calories, ArrayList<String> preparationSteps) {
+    public Recipes(String id, HashMap<String, String> ingredients, String title, String main_image, String category, String recipeName, String subCategory, String numberOfDishes, String description, ArrayList<String> preparationTime, String difficultyLevel, String calories, ArrayList<String> preparationSteps, ArrayList<String> products) {
+        this.id = id;
+        this.ingredients = ingredients;
+        this.title = title;
+        this.main_image = main_image;
+        this.category = category;
+        this.recipeName = recipeName;
+        this.subCategory = subCategory;
+        this.numberOfDishes = numberOfDishes;
+        this.description = description;
+        this.preparationTime = preparationTime;
+        this.difficultyLevel = difficultyLevel;
+        this.calories = calories;
+        PreparationSteps = preparationSteps;
+        this.products = products;
+    }
+
+    public Recipes(String id, HashMap<String, String> ingredients, String title, String main_image, String category, String recipeName, String subCategory, String numberOfDishes, String description, ArrayList<String> preparationTime, String difficultyLevel, String calories, ArrayList<String> preparationSteps) {
         this.id=id;
         this.ingredients = ingredients;
         this.title = title;
@@ -159,4 +180,13 @@ public class Recipes {
     public void setId(String id) {
         this.id = id;
     }
+    public ArrayList<String> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<String> products) {
+        this.products = products;
+    }
+
+
 }

@@ -6,21 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SearchView;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.application.easycook.MyPantryPackage.MyPantry;
 import com.application.easycook.MyPantryPackage.PantryProduct;
 import com.application.easycook.R;
 import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import org.jsoup.Jsoup;
@@ -34,6 +42,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class RecipeFragment extends Fragment {
 
@@ -42,9 +51,12 @@ public class RecipeFragment extends Fragment {
 
 
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    ArrayList<RecipeTitle> canCookNow_titles=new ArrayList<>();
+    ArrayList<Recipes> canCookNow_recipes=new ArrayList<>();
 
     private String mParam1;
     private String mParam2;
+    Switch aSwitch;
     private FirebaseDatabase fireBase=FirebaseDatabase.getInstance("https://ezcook-9b2ab-default-rtdb.europe-west1.firebasedatabase.app");
     private FirebaseAuth mAuth;
 
@@ -53,7 +65,8 @@ public class RecipeFragment extends Fragment {
     private FirebaseStorage storage;
     private ArrayList<RecipeTitle> recipeTitleArrayList;
     private  RecipeSubfragment recipeSubfragment;
-    MyPantry myPantry;
+    ArrayList<Recipes> recipes;
+    private static MyPantry myPantry;
 
     public RecipeFragment(MyPantry myPantry) {
         recipes_names=new ArrayList<>();
@@ -62,13 +75,15 @@ public class RecipeFragment extends Fragment {
         this.recipeTitleArrayList=myPantry.getRecipeTitleList();
         ArrayList<RecipeTitle> recipeTitles=myPantry.getRecipeTitleList();
         ArrayList<RecipeTitle> recipeTitles1=new ArrayList<>();
-        ArrayList<Recipes> recipes=new ArrayList<>();
-        for(int i=0;i<20;i++){
+        recipes=new ArrayList<>();
+        for(int i=0;i<recipeTitles.size();i++){
             recipeTitles1.add(recipeTitles.get(i));
             recipes.add(myPantry.getRecipeByid(recipeTitles.get(i).getId()));
 
         }
-        recipeSubfragment=new RecipeSubfragment(myPantry,recipeTitles1,recipes);
+
+        recipeSubfragment=new RecipeSubfragment(myPantry,recipeTitleArrayList,recipes);
+        CookNow();
 
 
 
@@ -92,65 +107,66 @@ public class RecipeFragment extends Fragment {
         gg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CookNow();
+
             }
         });
-//        gg.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    firestore.collection("Recipes_all")
-//                            .get()
-//                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                                @Override
-//                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                                    int counter = 0;
-//                                    List<DocumentSnapshot> querySnapshots = queryDocumentSnapshots.getDocuments();
-//                                    for (DocumentSnapshot documentSnapshot : querySnapshots) {
-//                                        documentSnapshot.getData();
-//                                        Recipes recipe = documentSnapshot.toObject(Recipes.class);
+
+        gg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    firestore.collection("Recipes_V1")
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    int counter = 0;
+                                    List<DocumentSnapshot> querySnapshots = queryDocumentSnapshots.getDocuments();
+                                    for (DocumentSnapshot documentSnapshot : querySnapshots) {
+                                        documentSnapshot.getData();
+                                        RecipeTitle recipeTitle = documentSnapshot.toObject(RecipeTitle.class);
 //                                        Map<String, Object> recip = new HashMap<>();
 //                                        recip.put("name", recipe.getRecipeName());
 //                                        recip.put("diff", recipe.getDifficultyLevel());
 //                                        recip.put("country", recipe.getTitle());
 //                                        System.out.println(recipe);
 //                                        firestore.collection("Recipes_Main").document("Categorys").collection(recipe.getCategory()).document(recipe.getId()).set(recip);
-////                                        System.out.println(documentSnapshot.get("link"));
-////                                        RecipeFragment.FetchRecipeTask task = new FetchRecipeTask(new Callback() {
-////                                            @Override
-////                                            public void onDocumentReady(Document document) {
-////                                                Recipes recipes = paersRecipes(document);
-////                                                String basename=recipeTitle.getLink();
-////                                                String[] splitStrings = basename.split("/");
-////                                                basename=splitStrings[splitStrings.length-1];
-////                                                basename=basename.replace("-"," ");
-////                                                recipes.setRecipeName(basename);
-////                                                recipes.setId(documentSnapshot.getId());
-////                                                firestore.collection("Recipes_all").document(documentSnapshot.getId()).set(recipes);
-////                                            }
-////
-////                                            @Override
-////                                            public void onError(Exception e) {
-////
-////                                            }
-////                                        });
-////                                        task.execute(recipeTitle.getLink()); // הפעלת ה-AsyncTask עם ה-URL בתור הפרמטר
-//                                        counter++;
-//                                    }
-//                                    System.out.println("Finish Update From FireStore!\n----- " + counter + " Products upload.");
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    System.out.println("------------------------ Error to get firestore----------------------" +
-//                                            e.getMessage());
-//                                }
-//                            });
-//                } catch (Exception exception) {
-//                    System.out.println(exception.getMessage());
-//                }
-//            }
-//        });
+//                                        System.out.println(documentSnapshot.get("link"));
+                                        RecipeFragment.FetchRecipeTask task = new FetchRecipeTask(new Callback() {
+                                            @Override
+                                            public void onDocumentReady(Document document) {
+                                                Recipes recipes = paersRecipes(document);
+                                                String basename=recipeTitle.getLink();
+                                                String[] splitStrings = basename.split("/");
+                                                basename=splitStrings[splitStrings.length-1];
+                                                basename=basename.replace("-"," ");
+                                                recipes.setRecipeName(basename);
+                                                recipes.setId(documentSnapshot.getId());
+                                                firestore.collection("Recipes_all_v2").document(documentSnapshot.getId()).set(recipes);
+                                            }
+
+                                            @Override
+                                            public void onError(Exception e) {
+
+                                            }
+                                        });
+                                        task.execute(recipeTitle.getLink()); // הפעלת ה-AsyncTask עם ה-URL בתור הפרמטר
+                                        counter++;
+                                    }
+                                    System.out.println("Finish Update From FireStore!\n----- " + counter + " Products upload.");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    System.out.println("------------------------ Error to get firestore----------------------" +
+                                            e.getMessage());
+                                }
+                            });
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
+                }
+            }
+        });
 
 
         replaceSubFragment(recipeSubfragment);
@@ -166,6 +182,22 @@ public class RecipeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SearchView searchView=view.findViewById(R.id.search_view_recipe_home);
+
+
+        NestedScrollView scrollView=view.findViewById(R.id.recipescrollview);
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
+
+                int diff = (view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY()));
+
+                if (diff == 0) {
+                    recipeSubfragment.addItems();
+                    // כאן תוכל לבצע את הפעולה הרצויה
+                }
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -187,12 +219,36 @@ public class RecipeFragment extends Fragment {
                 return false;
             }
         });
+        Switch cook_now=(Switch) view.findViewById(R.id.recipehomeswitch1);
+        cook_now.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(cook_now.isChecked()){
+                    System.out.println("on");
+                    recipeSubfragment.updateRecycle(canCookNow_recipes,canCookNow_titles);
+                }else {
+                    replaceFragment(new RecipeFragment(myPantry));
+                    System.out.println("off");
+                }
+
+            }
+        });
+//        aSwitch=view.findViewById(R.id.recipehomeswitch1);
 
 
 //        Button button7=view.findViewById(R.id.button5);
 
     }
 
+    public void onSwitchClick(View view){
+        if(aSwitch.isChecked()){
+            System.out.println("on");
+        }else {
+
+            System.out.println("off");
+        }
+
+    }
     private class FetchRecipeTask extends AsyncTask<String, Void, Void> {
 
         private Callback callback;
@@ -240,19 +296,23 @@ public class RecipeFragment extends Fragment {
         String subCategory=document.select("#main > div > article > section.details-container > div.details.container > ol > li:nth-child(4) > a").text();
         String numberOfDishes=document.select("#number-of-dishes").attr("data-amount");
         Elements ingredients_el=document.select("#recipe-ingredients > div.recipe-ingredients-container.row");
+        int grop_index=0;
         for(Element element: ingredients_el.select("div")){
             String amount=element.select("h2").text();
             if (!amount.isEmpty()){
-                ingediantsHash.put(amount,amount);
+                grop_index++;
+                String grop=String.valueOf(grop_index);
+                ingediantsHash.put(grop,amount);
             }
+            int index=0;
             for (Element element1:element.select("li")){
                 String p1=element1.select("#ing_ > div > span > span.ingredient-data > span.name").text();
                 System.out.println("------------------"+p1+"----------------------");
-                String amount3=element1.select("span.amount").text();
-                String amount2=element1.select("span.unit").text();
+                String amount1=element1.select("span.amount").text();
+                String unit=element1.select("span.unit").text();
 
                 String ingrediant_unit_type="";
-                ingrediant_unit_type=amount3 + " " + amount2;
+//                ingrediant_unit_type=amount3 + " " + amount2;
 
                 System.out.println("------------------"+ingrediant_unit_type+"----------------------");
                 if(ingrediant_unit_type.equals("")){
@@ -261,8 +321,18 @@ public class RecipeFragment extends Fragment {
                 if(p1.equals("")){
                     continue;
                 }
-                ingediantsHash.put(p1,ingrediant_unit_type);
+                String indx=String.valueOf(index);
+                String ing=grop_index+"_ingrediant_"+indx;
+                String ing_a_t=grop_index+"_unit_"+indx;
+                String ing_a=grop_index+"-amount_"+indx;
+                ingediantsHash.put(ing,p1);
+                ingediantsHash.put(ing_a,amount1);
+                ingediantsHash.put(ing_a_t,unit);
+                index++;
+
             }
+
+
         }
         System.out.println(ingediantsHash);
         ArrayList<String> preparationTime=new ArrayList<>();
@@ -313,13 +383,16 @@ public class RecipeFragment extends Fragment {
 
     }
     private void CookNow(){
-        ArrayList<RecipeTitle> canCookNow=new ArrayList<>();
+        canCookNow_recipes=new ArrayList<>();
+        canCookNow_titles=new ArrayList<>();
         ArrayList<String> name_tags=new ArrayList<>();
         for(PantryProduct product:myPantry.getPantryList()){
             String name=product.getProduct().getName();
+            System.out.println(name);
             String[] split=name.split(" ");
             for(int i = 0; i<split.length;i++){
                 name_tags.add(split[i]);
+
             }
         }
         for(RecipeTitle recipeTitle:myPantry.getRecipeTitleList()){
@@ -329,16 +402,32 @@ public class RecipeFragment extends Fragment {
                 continue;
             }
             for(String ingeridian: recipe.getIngredients().keySet()){
+                int i=0;
                 for(String name:name_tags){
                     if(ingeridian.contains(name)){
-                        canCookNow.add(recipeTitle);
+                        i++;
                     }
+                }
+                if(recipe.getIngredients().keySet().size()-2<i){
+                    canCookNow_titles.add(recipeTitle);
+                    canCookNow_recipes.add(recipe);
+                    break;
                 }
             }
         }
-        for(RecipeTitle recipeTitle:canCookNow){
+        for(RecipeTitle recipeTitle:canCookNow_titles){
             System.out.println(recipeTitle.getTitle());
+
         }
     }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getParentFragmentManager(); // השתמש ב-getChildFragmentManager() כאשר אתה עובד בתוך פרגמנט
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.home_fragment_layout, fragment);
+        fragmentTransaction.addToBackStack("fragmentA");
+        fragmentTransaction.commit();
+    }
+
 
 }

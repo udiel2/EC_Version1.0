@@ -8,7 +8,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.application.easycook.DatabaseHelper;
 import com.application.easycook.MyPantryPackage.PantryProduct;
 import com.application.easycook.Product;
 import com.application.easycook.RecipesPackage.MentorCookPackage.RecipeTitle;
@@ -27,7 +26,6 @@ public class DatabaseManager {
 
     private Context context;
     private SQLiteDatabase database;
-    private DatabaseHelper dbHelper;
     private PantryDatabaseHelper pantryDatabaseHelper;
     private ProductDatabaseHelper productDatabaseHelper;
     private RecipesDatabaseHelper recipesDatabaseHelper;
@@ -35,7 +33,9 @@ public class DatabaseManager {
     private FirebaseFirestore firestore=FirebaseFirestore.getInstance();
 
     public DatabaseManager(Context context) {
+
         this.context = context;
+
     }
 
     public void open() {
@@ -43,7 +43,7 @@ public class DatabaseManager {
         pantryDatabaseHelper =new PantryDatabaseHelper(context);
         recipesDatabaseHelper=new RecipesDatabaseHelper(context);
         recipeDetailsDatabaseHelper=new RecipeDetailsDatabaseHelper(context);
-//        dbHelper = new DatabaseHelper(context);
+//        recipeDetailsDatabaseHelper.syncWithFirestore();
         database = productDatabaseHelper.getWritableDatabase();
     }
 

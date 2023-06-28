@@ -33,6 +33,10 @@ public class Product {
 
     public Product(String name) {
         this.name = name;
+        ArrayList<String> image=new ArrayList<>();
+        image.add("fish-fresh_files");
+        image.add("M_P_default.png");
+        this.imagePath=image;
     }
 
     public Product(String name, String imagePath, String id) {

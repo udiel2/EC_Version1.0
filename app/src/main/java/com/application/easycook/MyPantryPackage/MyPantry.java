@@ -41,6 +41,13 @@ public class MyPantry {
 
 
     }
+    public ArrayList<Product> getPantryProducts(){
+        ArrayList<Product> products=new ArrayList<>();
+        for(PantryProduct pantryProduct:myPantry){
+            products.add(pantryProduct.getProduct());
+        }
+        return products;
+    }
 
     public void addProduct(Product product) {
         String product_id=product.getId();
@@ -68,6 +75,9 @@ public class MyPantry {
         boolean del=databaseManager.deletePantryProduct(id);
         return del;
 
+    }
+    public ArrayList<Product> getProductsByName(String name) {
+        return databaseManager.getProductByName(name);
     }
 
     public Product getProductByName(String name) {
@@ -107,6 +117,9 @@ public class MyPantry {
     }
     public RecipeTitle getRecipeTitleById(String id){
         return getRecipeTitleById(id);
+    }
+    public ArrayList<Product> getAllproducts(){
+        return databaseManager.getAllProducts();
     }
 
 }

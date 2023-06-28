@@ -2,6 +2,7 @@ package com.application.easycook.MyPantryPackage;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.util.Range;
 import android.view.Gravity;
@@ -103,11 +104,14 @@ public class PantrySubHomeRecyceleBuilder {
         textView.setText(text);
         textView.setId(View.generateViewId());
         ConstraintLayout.LayoutParams textLayoutParams1 = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-        textLayoutParams1.setMargins(0, 8, 16, 0);
+        textLayoutParams1.setMargins(0, 8, 16, 20);
 //            textLayoutParams1.startToEnd = button.getId();
         textLayoutParams1.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         textLayoutParams1.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
         textView.setLayoutParams(textLayoutParams1);
+        textView.setTextSize(16);
+        textView.setPadding(0,10,8,5);
+        textView.setTypeface(textView.getTypeface(), Typeface.BOLD_ITALIC);
         textView.setGravity(Gravity.START);// המחרוזת מתעדכנת על פי המחרוזת הנוכחית בלולאה
 
 
@@ -120,8 +124,11 @@ public class PantrySubHomeRecyceleBuilder {
 //        recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-
-
+        ConstraintLayout.LayoutParams recycleparam=new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        recycleparam.startToEnd=textView.getId();
+        recycleparam.setMargins(0, 8, 16, 20);
+        recyclerView.setPadding(0,10,8,5);
+        recyclerView.setLayoutParams(recycleparam);
         PantryAdapter adapter = new PantryAdapter(pantryProducts, context);
 //        adapters.add(adapter);
         recyclerView.setAdapter(adapter);

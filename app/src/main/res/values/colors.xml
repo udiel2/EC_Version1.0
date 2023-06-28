@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="greywhite">#EEEEEE</color>
-    <color name="Primary_Color">#50C2C9</color>
+    <color name="white">#FFFFFF</color>
+    <color name="greywhite">#FFFFFF</color>
+    <color name="Primary_Color">#FFD180</color>
     <color name="Secondary_Color">#55BBAF</color>
     <color name="light_green">#80DA82</color>
     <color name="red_light">#CC4134</color>

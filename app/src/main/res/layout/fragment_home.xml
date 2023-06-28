@@ -10,63 +10,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView2"
-            android:layout_width="409dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:id="@+id/updatehtml"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:text="Button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/b_log"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="5dp"
-                    android:text="Button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="409dp"
-            android:layout_height="300dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+            <!-- רקע עליון -->
             <LinearLayout
+                android:id="@+id/headerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:background="#FF4081"
+                android:orientation="vertical">
 
-                <ListView
+                <!-- כותרת -->
+                <TextView
+                    android:id="@+id/titleTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/pantry_item_layout" />
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="איזור אישי"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- אייקונה חזותית -->
+                <ImageView
+                    android:id="@+id/iconImageView"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/user" />
             </LinearLayout>
-        </ScrollView>
+
+            <!-- תוכן העמוד -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/headerLayout"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- הוסף כאן את הרכיבים שלך -->
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

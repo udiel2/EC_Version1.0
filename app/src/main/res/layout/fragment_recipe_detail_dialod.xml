@@ -43,6 +43,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="600dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -83,6 +84,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
                             android:layout_marginEnd="8dp"
+                            android:gravity="right|top"
                             android:text="מאפה בשר"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold"
@@ -95,6 +97,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="8dp"
+                            android:gravity="right|top"
                             android:text="ארוחות > בשר"
                             android:textColor="#FFFFFF"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -170,6 +173,7 @@
                                 android:padding="10dp"
                                 android:text="קלוריות"
                                 android:textAlignment="center" />
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -206,7 +210,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="50dp"
+                        android:layout_marginEnd="70dp"
                         android:padding="20dp"
                         android:text="מצרכים"
                         android:textSize="24sp"
@@ -236,7 +240,43 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/recipedetails_ingridient"
-                        tools:listitem="@layout/pantry_item_In_recipe" />
+                        tools:listitem="@layout/pantry_item_In_recipe" >
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="409dp"
+                    android:layout_height="69dp">
+
+                    <Button
+                        android:id="@+id/recipedetails_mentor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/amount_backround"
+                        android:backgroundTint="#FFD180"
+                        android:text="הכן עכשיו"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/recipedetails_updatepantry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/amount_backround"
+                        android:backgroundTint="#45A2EDED"
+                        android:text="הכנתי"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>

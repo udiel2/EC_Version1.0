@@ -29,7 +29,7 @@ public class RecipeDetailsDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "recipe_Detail.db";
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 8;
     private static final String TABLE_NAME = "recipes_detail";
 
     private static final String COLUMN_ID = "id";
@@ -82,6 +82,7 @@ public class RecipeDetailsDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTableQuery);
         System.out.println("Table created successfully.");
         syncWithFirestore();
+
     }
 
 
@@ -107,7 +108,7 @@ public class RecipeDetailsDatabaseHelper extends SQLiteOpenHelper {
     }
     public void syncWithFirestore() {
         try {
-            firestore.collection("Recipes_all")
+            firestore.collection("Recipes_all_v2")
 //                        .whereEqualTo("name",query_text)
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -139,6 +140,7 @@ public class RecipeDetailsDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+
     }
     public Recipes getRecipeById(String id) {
         SQLiteDatabase db = getReadableDatabase();

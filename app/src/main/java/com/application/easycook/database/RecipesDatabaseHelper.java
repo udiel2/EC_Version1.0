@@ -27,7 +27,7 @@ public class RecipesDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "recipe_main.db";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String TABLE_NAME = "recipes_title";
     private static final String COLUMN_ID = "id";
