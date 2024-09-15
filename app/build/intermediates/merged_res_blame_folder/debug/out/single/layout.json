@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/pantry_item_layout.xml",
+        "source": "com.application.easycook.app-main-41:/layout/pantry_item_layout.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/fragment_profile.xml",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/fragment_recipe.xml",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_recipe.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/activity_forgot_password.xml",
+        "source": "com.application.easycook.app-main-41:/layout/activity_forgot_password.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/fragment_home.xml",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/activity_login.xml",
+        "source": "com.application.easycook.app-main-41:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/activity_register.xml",
+        "source": "com.application.easycook.app-main-41:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/fragment_pantry_add_product.xml",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_pantry_add_product.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/fragment_pantry.xml",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_pantry.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/activity_home.xml",
+        "source": "com.application.easycook.app-main-41:/layout/activity_home.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-mergeDebugResources-38:/layout/activity_init.xml",
+        "source": "com.application.easycook.app-main-41:/layout/activity_init.xml"
+    }
+]

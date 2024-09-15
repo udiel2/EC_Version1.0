@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">260633441467-qos7dtphbhpoa9t9hve331dhdtfcmsrf.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">260633441467</string>
+    <string name="google_api_key" translatable="false">AIzaSyCKdRTliVsYgNZlZVUPYJn7KIAMo_G5zhE</string>
+    <string name="google_app_id" translatable="false">1:260633441467:android:80739987fe6276b142659e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCKdRTliVsYgNZlZVUPYJn7KIAMo_G5zhE</string>
+    <string name="google_storage_bucket" translatable="false">ezcookversion1.appspot.com</string>
+    <string name="project_id" translatable="false">ezcookversion1</string>
+</resources>

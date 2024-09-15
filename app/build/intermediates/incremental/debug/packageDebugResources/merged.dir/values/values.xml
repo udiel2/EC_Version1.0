@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Primary_Color">#50C2C9</color>
+    <color name="Secondary_Color">#55BBAF</color>
+    <color name="black">#FF000000</color>
+    <color name="greywhite">#EEEEEE</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">EasyCook</string>
+    <string name="default_web_client_id" translatable="false">260633441467-qos7dtphbhpoa9t9hve331dhdtfcmsrf.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">260633441467</string>
+    <string name="google_api_key" translatable="false">AIzaSyCKdRTliVsYgNZlZVUPYJn7KIAMo_G5zhE</string>
+    <string name="google_app_id" translatable="false">1:260633441467:android:80739987fe6276b142659e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCKdRTliVsYgNZlZVUPYJn7KIAMo_G5zhE</string>
+    <string name="google_storage_bucket" translatable="false">ezcookversion1.appspot.com</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="project_id" translatable="false">ezcookversion1</string>
+    <style name="Theme.EasyCook" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/Primary_Color</item>
+        <item name="colorSecondary">@color/Secondary_Color</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnPrimary">@color/greywhite</item>
+    </style>
+</resources>

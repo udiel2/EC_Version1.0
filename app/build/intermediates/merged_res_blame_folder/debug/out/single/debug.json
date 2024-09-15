@@ -1,0 +1,198 @@
+[
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/menu_button_nav_view.xml.flat",
+        "source": "com.application.easycook.app-main-41:/menu/button_nav_view.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_activity_register.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_pantry_item_layout.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/pantry_item_layout.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable-v24_login_img.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable-v24/login_img.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/font_poppinsmedium.ttf.flat",
+        "source": "com.application.easycook.app-main-41:/font/poppinsmedium.ttf"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_fragment_pantry_add_product.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_pantry_add_product.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_user.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/user.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_activity_home.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/activity_home.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_ic_baseline_arrow_back_ios_new_24.xml.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/ic_baseline_arrow_back_ios_new_24.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/font_poppinsbold.ttf.flat",
+        "source": "com.application.easycook.app-main-41:/font/poppinsbold.ttf"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_cupboard.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/cupboard.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/menu_pantry_toolbar.xml.flat",
+        "source": "com.application.easycook.app-main-41:/menu/pantry_toolbar.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_fragment_recipe.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_recipe.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_activity_init.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/activity_init.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_home.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/home.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/font_poppinsextra.ttf.flat",
+        "source": "com.application.easycook.app-main-41:/font/poppinsextra.ttf"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_ic_baseline_home_24.xml.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/ic_baseline_home_24.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable-v24_forgot_img.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable-v24/forgot_img.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/xml_data_extraction_rules.xml.flat",
+        "source": "com.application.easycook.app-main-41:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_fragment_profile.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_ic_baseline_supervised_user_circle_24.xml.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/ic_baseline_supervised_user_circle_24.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_activity_forgot_password.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/activity_forgot_password.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/font_poppinssemibold.ttf.flat",
+        "source": "com.application.easycook.app-main-41:/font/poppinssemibold.ttf"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.application.easycook.app-pngs-34:/drawable-anydpi-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_circleshape.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/circleshape.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/font_poppinsregular.ttf.flat",
+        "source": "com.application.easycook.app-main-41:/font/poppinsregular.ttf"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_button_shape.xml.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/button_shape.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_chef.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/chef.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_baseline_camera_alt_24.xml.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/baseline_camera_alt_24.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.application.easycook.app-main-41:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_activity_login.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable-v24_circleshape_y.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable-v24/circleshape_y.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_fragment_pantry.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_pantry.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/xml_backup_rules.xml.flat",
+        "source": "com.application.easycook.app-main-41:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_baseline_add_24.xml.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/baseline_add_24.xml"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/drawable_welcome_foreground_img.png.flat",
+        "source": "com.application.easycook.app-main-41:/drawable/welcome_foreground_img.png"
+    },
+    {
+        "merged": "com.application.easycook.app-merged_res-39:/layout_fragment_home.xml.flat",
+        "source": "com.application.easycook.app-main-41:/layout/fragment_home.xml"
+    }
+]
